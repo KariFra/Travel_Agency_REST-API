@@ -35,7 +35,7 @@ public class UserService {
     public void createNewUser(User user){
         ArrayList<Trip> trips = new ArrayList<>();
         ArrayList<Opinion> opinions = new ArrayList<>();
-        User newUser = new User(user.getFirstName(),user.getLastName(), user.getAddress(), user.getAvatarUrl(),
+        User newUser = new User(user.getId(),user.getFirstName(),user.getLastName(), user.getAddress(), user.getAvatarUrl(),
                 trips, opinions);
         repository.save(newUser);
     }

@@ -39,10 +39,10 @@ public class User {
             fetch = FetchType.LAZY)
     private List<Opinion> opinionsGiven;
 
-    public User(String firstName, String lastName, String address, String avatarUrl,
-                List<Trip> trips, List<Opinion> opinionsGiven) {
+
+    public User(String firstName, String lastName, String address, String avatarUrl) {
     }
 
-    public User(String firstName, String lastName, String address) {
+    public User(Long id, String firstName, String lastName, String address, String avatarUrl) {
     }
 }

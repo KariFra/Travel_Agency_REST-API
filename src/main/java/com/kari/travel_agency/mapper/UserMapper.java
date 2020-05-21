@@ -6,7 +6,6 @@ import com.kari.travel_agency.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,14 +24,11 @@ public class UserMapper {
 
     public User toUser(UserDto userDto){
         return new User(userDto.getId(), userDto.getFirstName(), userDto.getLastName(), userDto.getAddress(),
-                userDto.getAvatarUrl(), tripMapper.toTripList(userDto.getTripsId()),
-                opinionMapper.toOpinionList(userDto.getOpinionsId()));
+                userDto.getAvatarUrl());
     }
 
     public  UserDto toUserDto(User user){
-        return new UserDto(user.getId(), user.getFirstName(), user.getLastName(), user.getAddress(),
-        user.getAvatarUrl(), tripMapper.toTripDtoList(user.getTrips()),
-                opinionMapper.toOpinionDtoList(user.getOpinionsGiven()));
+        return new UserDto(user.getId(), user.getFirstName(), user.getLastName(), user.getAddress(), user.getAvatarUrl());
     }
 
     public List<User> toUserList(List<Long> list){

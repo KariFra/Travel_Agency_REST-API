@@ -31,4 +31,6 @@ public class UserDto {
     private List<Long> opinionsId = new ArrayList<>();
 
 
+    public UserDto(Long id, String firstName, String lastName, String address, String avatarUrl) {
+    }
 }
