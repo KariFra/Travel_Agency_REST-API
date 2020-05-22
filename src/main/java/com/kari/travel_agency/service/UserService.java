@@ -1,8 +1,6 @@
 package com.kari.travel_agency.service;
 
 import com.kari.travel_agency.dto.UserDto;
-import com.kari.travel_agency.entity.Opinion;
-import com.kari.travel_agency.entity.Trip;
 import com.kari.travel_agency.entity.User;
 import com.kari.travel_agency.exception.NotFoundException;
 import com.kari.travel_agency.mapper.UserMapper;
@@ -10,7 +8,6 @@ import com.kari.travel_agency.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,21 +24,19 @@ public class UserService {
     }
 
     public UserDto getUser(Long id){
-        repository.findById(id).orElseThrow(() -> new NotFoundException("User with the id number:"+id+" was not found"));
-            return userMapper.toUserDto(repository.getOne(id));
-
+        User user = repository.getOne(id);
+        if (user == null) throw new NotFoundException("User with the id number: "+id+" was not found");
+        return userMapper.toUserDto(user);
     }
 
     public void createNewUser(User user){
-        ArrayList<Trip> trips = new ArrayList<>();
-        ArrayList<Opinion> opinions = new ArrayList<>();
-        User newUser = new User(user.getId(),user.getFirstName(),user.getLastName(), user.getAddress(), user.getAvatarUrl(),
-                trips, opinions);
+        User newUser = new User(user.getId(),user.getFirstName(),user.getLastName(), user.getAddress(), user.getAvatarUrl());
         repository.save(newUser);
     }
 
     public void deleteUser(Long id){
-        repository.findById(id).orElseThrow(() -> new NotFoundException("User with the id number:"+id+" was not found"));
+        User user = repository.getOne(id);
+        if (user == null) throw new NotFoundException("User with the id number: "+id+" was not found");
         repository.deleteById(id);
     }
 
@@ -50,7 +45,6 @@ public class UserService {
         newUser.setFirstName(userDto.getFirstName());
         newUser.setLastName(userDto.getLastName());
         newUser.setAddress(userDto.getAddress());
-        repository.save(newUser);
-        return userMapper.toUserDto(repository.getOne(newUser.getId()));
+        return userMapper.toUserDto(repository.save(newUser));
     }
 }

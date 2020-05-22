@@ -1,10 +1,7 @@
 package com.kari.travel_agency.dto;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 
 import java.util.ArrayList;
@@ -30,7 +27,18 @@ public class UserDto {
 
     private List<Long> opinionsId = new ArrayList<>();
 
-
     public UserDto(Long id, String firstName, String lastName, String address, String avatarUrl) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.avatarUrl = avatarUrl;
+    }
+
+    public UserDto(String firstName, String lastName, String address, String avatarUrl) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.avatarUrl = avatarUrl;
     }
 }

@@ -1,9 +1,6 @@
 package com.kari.travel_agency.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -16,7 +13,7 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String firstName;
@@ -39,10 +36,29 @@ public class User {
             fetch = FetchType.LAZY)
     private List<Opinion> opinionsGiven;
 
-
-    public User(String firstName, String lastName, String address, String avatarUrl) {
+    public User(Long id, String firstName, String lastName, String address, String avatarUrl) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.avatarUrl = avatarUrl;
     }
 
-    public User(Long id, String firstName, String lastName, String address, String avatarUrl) {
+    public User(String firstName, String lastName, String address, String avatarUrl) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.avatarUrl = avatarUrl;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address='" + address + '\'' +
+                ", avatarUrl='" + avatarUrl + '\'' +
+                '}';
     }
 }
