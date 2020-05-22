@@ -27,15 +27,9 @@ public class ArticleMapper {
                 article.getPhotoUrl(), article.getCity());
     }
 
-    public List<Article> toArticleList(List<Long> list){
+    public List<ArticleDto> toArticleDtoList(List<Article> list){
         return list.stream()
-                .map(element -> repository.getOne(element))
-                .collect(Collectors.toList());
-    }
-
-    public List<Long> toArticleDtoList(List<Article> list){
-        return list.stream()
-                .map(article -> article.getId())
+                .map(article -> toArticleDto(article))
                 .collect(Collectors.toList());
     }
 }

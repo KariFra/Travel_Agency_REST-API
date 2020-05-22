@@ -46,12 +46,13 @@ public class TripDto {
 
     private boolean isComplaint;
 
-    public TripDto(String arrivedAirport, String departedAirport, Long userId, int amountOfParticipants, Long price,
+
+    public TripDto(Long id, String arrivedAirport, String departedAirport, int amountOfParticipants, Long price,
                 String foodOption, String description, String standard, int length, LocalDate startingTime,
-                LocalDate finishTime, String photoUrl, Long opinionId) {
+                LocalDate finishTime, String photoUrl) {
+        this.id = id;
         this.arrivedAirport = arrivedAirport;
         this.departedAirport = departedAirport;
-        this.userId = userId;
         this.amountOfParticipants = amountOfParticipants;
         this.price = price;
         this.foodOption = foodOption;
@@ -61,14 +62,22 @@ public class TripDto {
         this.startingTime = startingTime;
         this.finishTime = finishTime;
         this.photoUrl = photoUrl;
-        this.opinionId = opinionId;
     }
-    public TripDto(Long id, String arrivedAirport, String departedAirport, Long userId) {
-        this.id = id;
+
+    public TripDto(String arrivedAirport, String departedAirport, int amountOfParticipants, Long price,
+                String foodOption, String description, String standard, int length, LocalDate startingTime,
+                LocalDate finishTime, String photoUrl) {
         this.arrivedAirport = arrivedAirport;
         this.departedAirport = departedAirport;
-        this.userId = userId;
-
+        this.amountOfParticipants = amountOfParticipants;
+        this.price = price;
+        this.foodOption = foodOption;
+        this.description = description;
+        this.standard = standard;
+        this.length = length;
+        this.startingTime = startingTime;
+        this.finishTime = finishTime;
+        this.photoUrl = photoUrl;
     }
 
     @Override

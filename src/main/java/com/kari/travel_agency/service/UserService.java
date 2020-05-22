@@ -24,19 +24,17 @@ public class UserService {
     }
 
     public UserDto getUser(Long id){
-        User user = repository.getOne(id);
-        if (user == null) throw new NotFoundException("User with the id number: "+id+" was not found");
-        return userMapper.toUserDto(user);
+        repository.findById(id).orElseThrow(()->new NotFoundException("User with the id number: "+id+" was not found"));
+        return userMapper.toUserDto(repository.getOne(id));
     }
 
     public void createNewUser(User user){
-        User newUser = new User(user.getId(),user.getFirstName(),user.getLastName(), user.getAddress(), user.getAvatarUrl());
+        User newUser = new User(user.getFirstName(),user.getLastName(), user.getAddress(), user.getAvatarUrl());
         repository.save(newUser);
     }
 
     public void deleteUser(Long id){
-        User user = repository.getOne(id);
-        if (user == null) throw new NotFoundException("User with the id number: "+id+" was not found");
+        repository.findById(id).orElseThrow(()->new NotFoundException("User with the id number: "+id+" was not found"));
         repository.deleteById(id);
     }
 

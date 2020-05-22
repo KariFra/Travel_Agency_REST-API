@@ -26,18 +26,6 @@ public class UserMapper {
         return new UserDto(user.getId(), user.getFirstName(), user.getLastName(), user.getAddress(), user.getAvatarUrl());
     }
 
-    public List<User> toUserList(List<Long> list){
-        return list.stream()
-                .map(id -> repository.getOne(id))
-                .collect(Collectors.toList());
-    }
-
-    public List<Long> toUserIdList(List<User> list){
-        return list.stream()
-                .map(user -> user.getId())
-                .collect(Collectors.toList());
-    }
-
     public List<UserDto> toUserDtoList(List<User> list){
         return list.stream()
                 .map(user -> toUserDto(user))

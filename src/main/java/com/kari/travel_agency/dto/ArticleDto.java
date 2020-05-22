@@ -23,4 +23,11 @@ public class ArticleDto {
     private String photoUrl;
 
     private String city;
+
+    public ArticleDto(String title, String text, String photoUrl, String city) {
+        this.title = title;
+        this.text = text;
+        this.photoUrl = photoUrl;
+        this.city = city;
+    }
 }

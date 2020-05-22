@@ -25,4 +25,11 @@ public class Article {
     private String photoUrl;
 
     private String city;
+
+    public Article(String title, String text, String photoUrl, String city) {
+        this.title = title;
+        this.text = text;
+        this.photoUrl = photoUrl;
+        this.city = city;
+    }
 }

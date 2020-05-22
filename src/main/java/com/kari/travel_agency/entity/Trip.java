@@ -51,12 +51,11 @@ public class Trip {
 
     private boolean isComplaint;
 
-    public Trip(String arrivedAirport, String departedAirport, User user, int amountOfParticipants, Long price,
+    public Trip(String arrivedAirport, String departedAirport, int amountOfParticipants, Long price,
                 String foodOption, String description, String standard, int length, LocalDate startingTime,
-                LocalDate finishTime, String photoUrl, Opinion opinion) {
+                LocalDate finishTime, String photoUrl) {
         this.arrivedAirport = arrivedAirport;
         this.departedAirport = departedAirport;
-        this.user = user;
         this.amountOfParticipants = amountOfParticipants;
         this.price = price;
         this.foodOption = foodOption;
@@ -66,14 +65,23 @@ public class Trip {
         this.startingTime = startingTime;
         this.finishTime = finishTime;
         this.photoUrl = photoUrl;
-        this.opinion = opinion;
     }
 
-    public Trip(Long id, String arrivedAirport, String departedAirport, User user) {
+    public Trip(Long id, String arrivedAirport, String departedAirport, int amountOfParticipants, Long price,
+                String foodOption, String description, String standard, int length, LocalDate startingTime,
+                LocalDate finishTime, String photoUrl) {
         this.id = id;
         this.arrivedAirport = arrivedAirport;
         this.departedAirport = departedAirport;
-        this.user = user;
+        this.amountOfParticipants = amountOfParticipants;
+        this.price = price;
+        this.foodOption = foodOption;
+        this.description = description;
+        this.standard = standard;
+        this.length = length;
+        this.startingTime = startingTime;
+        this.finishTime = finishTime;
+        this.photoUrl = photoUrl;
     }
 
     @Override

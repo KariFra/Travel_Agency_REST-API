@@ -2,6 +2,7 @@ package com.kari.travel_agency.service;
 
 import com.kari.travel_agency.dto.UserDto;
 import com.kari.travel_agency.entity.User;
+import com.kari.travel_agency.exception.NotFoundException;
 import com.kari.travel_agency.mapper.UserMapper;
 import com.kari.travel_agency.repository.UserRepository;
 import org.junit.Before;
@@ -12,7 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
+
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -73,8 +74,8 @@ public class UserServiceTest {
         assertEquals("Joanna",user.getFirstName());
     }
 
-    @Test(expected = EntityNotFoundException.class)
-    public void shouldGetUserException() throws EntityNotFoundException{
+    @Test(expected = NotFoundException.class)
+    public void shouldGetUserException() throws NotFoundException{
         //When
         UserDto user = service.getUser(50L);
     }
@@ -96,6 +97,23 @@ public class UserServiceTest {
         assertEquals("July",repository.getOne(num).getFirstName());
         assertEquals("Bard-Dell",repository.getOne(num).getLastName());
         assertEquals("lalalaLand 15",repository.getOne(num).getAddress());
+    }
+
+    @Test
+    public void shouldCreateUser(){
+        LOGGER.info("Creating user");
+        //Given
+        User user = new User("Brian", "Bard", "ul. Kwiatowa 15/8, Warszawa",
+                "https://avatars.dicebear.com/api/bottts/:tree.svg");
+        List<User> listOne = repository.findAll();
+        int sizeOne = listOne.size();
+        service.createNewUser(user);
+        //When
+        List<User> listTwo = repository.findAll();
+        int sizeTwo = listTwo.size();
+
+        //Than
+        assertTrue(sizeTwo - sizeOne == 1);
     }
 
     @Test
