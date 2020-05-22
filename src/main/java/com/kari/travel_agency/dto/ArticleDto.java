@@ -22,5 +22,5 @@ public class ArticleDto {
 
     private String photoUrl;
 
-    private CityDto city;
+    private String city;
 }

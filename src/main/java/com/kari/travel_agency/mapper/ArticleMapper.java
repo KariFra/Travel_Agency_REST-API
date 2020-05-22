@@ -12,20 +12,19 @@ import java.util.stream.Collectors;
 @Component
 public class ArticleMapper {
 
-    @Autowired
-    private CityMapper cityMapper;
+
 
     @Autowired
     private ArticleRepository repository;
 
     public Article toArticle(ArticleDto articleDto){
         return new Article(articleDto.getId(), articleDto.getTitle(),articleDto.getText(),
-                articleDto.getPhotoUrl(), cityMapper.toCity(articleDto.getCity()));
+                articleDto.getPhotoUrl(), articleDto.getCity());
     }
 
     public ArticleDto toArticleDto(Article article){
         return new ArticleDto(article.getId(), article.getTitle(),article.getText(),
-                article.getPhotoUrl(), cityMapper.toCityDto(article.getCity()));
+                article.getPhotoUrl(), article.getCity());
     }
 
     public List<Article> toArticleList(List<Long> list){

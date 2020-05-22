@@ -30,10 +30,6 @@ public class Temperature {
 
     private int amountOfDays;
 
-    @OneToMany(targetEntity = City.class,
-            mappedBy = "temperature",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY)
-    private List<City> city;
+    private String city;
 
 }

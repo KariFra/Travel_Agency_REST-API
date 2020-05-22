@@ -16,16 +16,12 @@ import java.time.LocalDate;
 public class Trip {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "airport_arrived")
-    private Airport arrived;
+    private String arrivedAirport;
 
-    @ManyToOne
-    @JoinColumn(name = "airport_departed")
-    private Airport departed;
+    private String departedAirport;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -36,6 +32,8 @@ public class Trip {
     private Long price;
 
     private String foodOption;
+
+    private String description;
 
     private String standard;
 
@@ -53,4 +51,38 @@ public class Trip {
 
     private boolean isComplaint;
 
+    public Trip(String arrivedAirport, String departedAirport, User user, int amountOfParticipants, Long price,
+                String foodOption, String description, String standard, int length, LocalDate startingTime,
+                LocalDate finishTime, String photoUrl, Opinion opinion) {
+        this.arrivedAirport = arrivedAirport;
+        this.departedAirport = departedAirport;
+        this.user = user;
+        this.amountOfParticipants = amountOfParticipants;
+        this.price = price;
+        this.foodOption = foodOption;
+        this.description = description;
+        this.standard = standard;
+        this.length = length;
+        this.startingTime = startingTime;
+        this.finishTime = finishTime;
+        this.photoUrl = photoUrl;
+        this.opinion = opinion;
+    }
+
+    public Trip(Long id, String arrivedAirport, String departedAirport, User user) {
+        this.id = id;
+        this.arrivedAirport = arrivedAirport;
+        this.departedAirport = departedAirport;
+        this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "Trip{" +
+                "id=" + id +
+                ", amountOfParticipants=" + amountOfParticipants +
+                ", price=" + price +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

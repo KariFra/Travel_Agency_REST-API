@@ -12,11 +12,6 @@ import java.util.stream.Collectors;
 @Component
 public class UserMapper {
 
-    @Autowired
-    private TripMapper tripMapper;
-
-    @Autowired
-    private OpinionMapper opinionMapper;
 
     @Autowired
     private UserRepository repository;

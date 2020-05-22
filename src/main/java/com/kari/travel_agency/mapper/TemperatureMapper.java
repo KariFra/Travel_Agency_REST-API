@@ -12,8 +12,6 @@ import java.util.stream.Collectors;
 @Component
 public class TemperatureMapper {
 
-    @Autowired
-    private CityMapper cityMapper;
 
     @Autowired
     private TemperatureRepository repository;
@@ -21,13 +19,13 @@ public class TemperatureMapper {
     public Temperature toTemperature(TemperatureDto temperatureDto){
         return new Temperature(temperatureDto.getId(), temperatureDto.getDegree(), temperatureDto.getDescription(),
                 temperatureDto.getUrl(), temperatureDto.getDateBeginning(), temperatureDto.getAmountOfDays(),
-                cityMapper.toCityList(temperatureDto.getCitiesId()));
+                temperatureDto.getCity());
     }
 
     public TemperatureDto toTemperatureDto(Temperature temperature){
         return new TemperatureDto(temperature.getId(), temperature.getDegree(), temperature.getDescription(),
                 temperature.getUrl(), temperature.getDateBeginning(), temperature.getAmountOfDays(),
-                cityMapper.toCityDtoList(temperature.getCity()));
+                temperature.getCity());
     }
 
     public List<Temperature> toTemperatureList(List<Long> list){

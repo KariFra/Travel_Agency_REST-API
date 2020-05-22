@@ -24,7 +24,5 @@ public class Article {
 
     private String photoUrl;
 
-    @ManyToOne
-    @JoinColumn(name = "city_id")
-    private City city;
+    private String city;
 }

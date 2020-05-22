@@ -1,14 +1,12 @@
 package com.kari.travel_agency.dto;
 
-import com.kari.travel_agency.entity.City;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+
 
 
 @Getter
@@ -29,5 +27,5 @@ public class TemperatureDto {
 
     private int amountOfDays;
 
-    private List<Long> citiesId = new ArrayList<>();
+    private String city;
 }

@@ -1,13 +1,16 @@
 package com.kari.travel_agency.mapper;
 
 import com.kari.travel_agency.dto.TripDto;
+import com.kari.travel_agency.dto.UserDto;
 import com.kari.travel_agency.entity.Trip;
+import com.kari.travel_agency.entity.User;
 import com.kari.travel_agency.repository.TripRepository;
+import com.kari.travel_agency.repository.UserRepository;
+import com.kari.travel_agency.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,27 +18,19 @@ import java.util.stream.Collectors;
 public class TripMapper {
 
     @Autowired
-    private UserMapper userMapper;
+    private UserRepository userRepository;
 
-    @Autowired
-    private OpinionMapper opinionMapper;
-
-    @Autowired
-    private AirportMapper airportMapper;
 
     @Autowired
     private TripRepository repository;
 
     public Trip toTrip(TripDto tripDto){
-        return new Trip(tripDto.getId(), airportMapper.toAirport(tripDto.getArrived()), airportMapper.toAirport(tripDto.getDeparted()), userMapper.toUser(tripDto.getUser()), tripDto.getAmountOfParticipants(),
-                tripDto.getPrice(), tripDto.getFoodOption(), tripDto.getStandard(), tripDto.getLength(), tripDto.getStartingTime(),
-                tripDto.getFinishTime(), tripDto.getPhotoUrl(), opinionMapper.toOpinion(tripDto.getOpinion()), tripDto.isComplaint());
+        User user = userRepository.getOne(tripDto.getUserId());
+        return new Trip(tripDto.getId(), tripDto.getArrivedAirport(), tripDto.getDepartedAirport(), user);
     }
 
     public TripDto toTripDto(Trip trip){
-        return new TripDto(trip.getId(), airportMapper.toAirportDto(trip.getArrived()), airportMapper.toAirportDto(trip.getDeparted()), userMapper.toUserDto(trip.getUser()),
-                trip.getAmountOfParticipants(), trip.getPrice(), trip.getFoodOption(), trip.getStandard(), trip.getLength(),
-                trip.getStartingTime(), trip.getFinishTime(), trip.getPhotoUrl(), opinionMapper.toOpinionDto(trip.getOpinion()), trip.isComplaint());
+        return new TripDto(trip.getId(), trip.getArrivedAirport(), trip.getDepartedAirport(), trip.getUser().getId());
     }
 
     public List<Trip> toTripList(List<Long> list){
@@ -47,6 +42,11 @@ public class TripMapper {
     public List<Long> toTripDtoList(List<Trip> list){
         return list.stream()
                 .map(trip -> trip.getId())
+                .collect(Collectors.toList());
+    }
+    public List<TripDto> toTripDtoListWhole(List<Trip> list){
+        return list.stream()
+                .map(trip -> toTripDto(trip))
                 .collect(Collectors.toList());
     }
 }

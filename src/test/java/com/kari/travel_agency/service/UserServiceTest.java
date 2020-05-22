@@ -35,6 +35,8 @@ public class UserServiceTest {
     @Autowired
     private UserMapper mapper;
 
+    private Long userOneId = 0L;
+
     @Before
     public void prep(){
         LOGGER.info("Putting two users to database.");
@@ -46,6 +48,7 @@ public class UserServiceTest {
         list.add(userOne);
         list.add(userTwo);
         repository.saveAll(list);
+        userOneId = userOne.getId();
     }
 
     @Test
@@ -53,6 +56,7 @@ public class UserServiceTest {
         LOGGER.info("Getting users.");
         //When
         List<UserDto> userList = service.getUsers();
+        System.out.println(userList);
         //Than
         assertTrue(userList.size()!=0);
         assertEquals("Mroz",userList.get(1).getLastName());
@@ -63,8 +67,7 @@ public class UserServiceTest {
         LOGGER.info("Getting one user");
         //When
         List<User> list = repository.findAll();
-        Long idNum = list.get(0).getId();
-        UserDto user = service.getUser(idNum);
+        UserDto user = service.getUser(userOneId);
 
         //Than
         assertEquals("Joanna",user.getFirstName());
