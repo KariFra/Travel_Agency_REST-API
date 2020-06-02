@@ -1,7 +1,7 @@
 package com.kari.travelagency.service;
 
 import com.kari.travelagency.dto.UserDto;
-import com.kari.travelagency.entity.User;
+import com.kari.travelagency.entity.UserEntity;
 import com.kari.travelagency.exception.NotFoundException;
 import com.kari.travelagency.mapper.UserMapper;
 import com.kari.travelagency.repository.UserRepository;
@@ -24,8 +24,8 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
-public class UserServiceTest {
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceTest.class);
+public class UserEntityServiceTest {
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserEntityServiceTest.class);
 
     @Autowired
     private UserRepository repository;
@@ -42,24 +42,24 @@ public class UserServiceTest {
     @Before
     public void prep(){
         LOGGER.info("Putting two users to database.");
-        User userOne = new User().toBuilder()
+        UserEntity userEntityOne = new UserEntity().toBuilder()
                 .firstName("Joanna")
                 .lastName("Mroz")
                 .mail("user@mail.com")
                 .avatarUrl("https://avatars.dicebear.com/api/bottts/:tree.svg")
                 .build();
-        User userTwo = new User().toBuilder()
+        UserEntity userEntityTwo = new UserEntity().toBuilder()
                 .firstName("Marc")
                 .lastName("Bell")
                 .mail("user@mail.com")
                 .avatarUrl("https://avatars.dicebear.com/api/bottts/:ball.svg")
                 .build();
-        List<User> list = new ArrayList<>();
-        list.add(userOne);
-        list.add(userTwo);
+        List<UserEntity> list = new ArrayList<>();
+        list.add(userEntityOne);
+        list.add(userEntityTwo);
         repository.saveAll(list);
-        userOneId = userOne.getId();
-        userTwoId = userTwo.getId();
+        userOneId = userEntityOne.getId();
+        userTwoId = userEntityTwo.getId();
     }
 
     @Test
@@ -80,7 +80,7 @@ public class UserServiceTest {
     public void shouldGetUser(){
         LOGGER.info("Getting one user");
         //When
-        List<User> list = repository.findAll();
+        List<UserEntity> list = repository.findAll();
         UserDto user = service.getUser(userOneId);
 
         //Than
@@ -103,19 +103,19 @@ public class UserServiceTest {
     public void shouldUpdateUser(){
         LOGGER.info("Updating user.");
         //Given
-        User beforeUser = new User().toBuilder()
+        UserEntity beforeUserEntity = new UserEntity().toBuilder()
                 .firstName("Joanna")
                 .lastName("Mroz")
                 .mail("user@mail.com")
                 .avatarUrl("https://avatars.dicebear.com/api/bottts/:tree.svg")
                 .build();
-        repository.save(beforeUser);
-        Long num = beforeUser.getId();
+        repository.save(beforeUserEntity);
+        Long num = beforeUserEntity.getId();
         //When
-        beforeUser.setFirstName("July");
-        beforeUser.setLastName("Bard-Dell");
-        beforeUser.setMail("user@mail.com");
-        service.updateUser(mapper.toUserDto(beforeUser));
+        beforeUserEntity.setFirstName("July");
+        beforeUserEntity.setLastName("Bard-Dell");
+        beforeUserEntity.setMail("user@mail.com");
+        service.updateUser(mapper.toUserDto(beforeUserEntity));
         //Than
         assertEquals("July",repository.getOne(num).getFirstName());
         assertEquals("Bard-Dell",repository.getOne(num).getLastName());
@@ -130,17 +130,17 @@ public class UserServiceTest {
     public void shouldCreateUser(){
         LOGGER.info("Creating user");
         //Given
-        User user = new User().toBuilder()
+        UserEntity userEntity = new UserEntity().toBuilder()
                 .firstName("Joanna")
                 .lastName("Mroz")
                 .mail("user@mail.com")
                 .avatarUrl("https://avatars.dicebear.com/api/bottts/:tree.svg")
                 .build();
-        List<User> listOne = repository.findAll();
+        List<UserEntity> listOne = repository.findAll();
         int sizeOne = listOne.size();
-        Long thirdUserId = service.createNewUser(user).getId();
+        Long thirdUserId = service.createNewUser(userEntity).getId();
         //When
-        List<User> listTwo = repository.findAll();
+        List<UserEntity> listTwo = repository.findAll();
         int sizeTwo = listTwo.size();
 
         //Than
@@ -155,18 +155,18 @@ public class UserServiceTest {
     public void shouldDeleteUser(){
         LOGGER.info("Deleting all of the users.");
         //Given
-        User user = new User().toBuilder()
+        UserEntity userEntity = new UserEntity().toBuilder()
                 .firstName("Dereck")
                 .lastName("Mroz")
                 .mail("user2@mail.com")
                 .avatarUrl("https://avatars.dicebear.com/api/bottts/:tree.svg")
                 .build();
-        Long userId = repository.save(user).getId();
-        List<User> listOne = repository.findAll();
+        Long userId = repository.save(userEntity).getId();
+        List<UserEntity> listOne = repository.findAll();
         //When
         int sizeOne = listOne.size();
         service.deleteUser(userId);
-        List<User> listTwo = repository.findAll();
+        List<UserEntity> listTwo = repository.findAll();
         int sizeTwo = listTwo.size();
         //Than
         assertTrue(sizeOne - sizeTwo == 1);

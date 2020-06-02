@@ -1,6 +1,5 @@
 package com.kari.travelagency.entity;
 
-import com.kari.travelagency.security.Role;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class User {
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -49,9 +48,9 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        User user = (User) o;
+        UserEntity userEntity = (UserEntity) o;
 
-        return id.equals(user.id);
+        return id.equals(userEntity.id);
     }
 
     @Override

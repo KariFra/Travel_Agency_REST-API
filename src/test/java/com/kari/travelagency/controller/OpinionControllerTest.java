@@ -4,7 +4,7 @@ package com.kari.travelagency.controller;
 import com.google.gson.Gson;
 import com.kari.travelagency.dto.OpinionDto;
 import com.kari.travelagency.entity.Opinion;
-import com.kari.travelagency.entity.User;
+import com.kari.travelagency.entity.UserEntity;
 import com.kari.travelagency.exception.NotFoundException;
 import com.kari.travelagency.mapper.OpinionMapper;
 import com.kari.travelagency.service.OpinionService;
@@ -102,7 +102,7 @@ public class OpinionControllerTest {
     public void shouldCreateOpinion() throws Exception{
         //Given
 
-        User user = new User().toBuilder()
+        UserEntity userEntity = new UserEntity().toBuilder()
                 .id(1L)
                 .firstName("Joanna")
                 .lastName("Mroz")
@@ -110,7 +110,7 @@ public class OpinionControllerTest {
                 .avatarUrl("https://avatars.dicebear.com/api/bottts/:tree.svg")
                 .build();
         OpinionDto opinionDto = new OpinionDto(1L,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", 1L, 10);
-        Opinion opinion = new Opinion(1L,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", user, 10 );
+        Opinion opinion = new Opinion(1L,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", userEntity, 10 );
 
         //When & Than
         when(mapper.toOpinion(any(OpinionDto.class))).thenReturn(opinion);

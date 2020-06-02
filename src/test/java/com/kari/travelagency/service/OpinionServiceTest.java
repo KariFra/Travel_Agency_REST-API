@@ -2,7 +2,7 @@ package com.kari.travelagency.service;
 
 import com.kari.travelagency.dto.OpinionDto;
 import com.kari.travelagency.entity.Opinion;
-import com.kari.travelagency.entity.User;
+import com.kari.travelagency.entity.UserEntity;
 import com.kari.travelagency.exception.NotFoundException;
 import com.kari.travelagency.mapper.OpinionMapper;
 import com.kari.travelagency.repository.OpinionRepository;
@@ -51,16 +51,16 @@ public class OpinionServiceTest {
     public void prep(){
         LOGGER.info("Putting two opinions into database.");
 
-        User user = new User().toBuilder()
+        UserEntity userEntity = new UserEntity().toBuilder()
                 .firstName("Joanna")
                 .lastName("Mroz")
                 .mail("user2@mail.com")
                 .avatarUrl("https://avatars.dicebear.com/api/bottts/:tree.svg")
                 .build();
-        userId = userRepository.save(user).getId();
+        userId = userRepository.save(userEntity).getId();
 
-        Opinion opinionOne = new Opinion("It suckskhfkhskuhfusehfus",user, 2);
-        Opinion opinionTwo = new Opinion("It is awesomeefkhsefuesfhsehkf!",user, 10);
+        Opinion opinionOne = new Opinion("It suckskhfkhskuhfusehfus", userEntity, 2);
+        Opinion opinionTwo = new Opinion("It is awesomeefkhsefuesfhsehkf!", userEntity, 10);
 
         List<Opinion> list = new ArrayList<>();
         list.add(opinionOne);
@@ -110,15 +110,15 @@ public class OpinionServiceTest {
     public void shouldCreateTrip(){
         LOGGER.info("Creating opinion");
         //Given
-        User user = new User().toBuilder()
+        UserEntity userEntity = new UserEntity().toBuilder()
                 .firstName("Dereck")
                 .lastName("Mroz")
                 .mail("user2@mail.com")
                 .avatarUrl("https://avatars.dicebear.com/api/bottts/:tree.svg")
                 .build();
-        Long userTwoId = userRepository.save(user).getId();
+        Long userTwoId = userRepository.save(userEntity).getId();
 
-        Opinion opinion = new Opinion("I spend nice timesjefsjkefskehf",user, 8);
+        Opinion opinion = new Opinion("I spend nice timesjefsjkefskehf", userEntity, 8);
         List<Opinion> listOne = repository.findAll();
         int sizeOne = listOne.size();
         //When
@@ -140,15 +140,15 @@ public class OpinionServiceTest {
     public void shouldDeleteOpinion(){
         LOGGER.info("Deleting all of the opinions.");
         //Given
-        User user = new User().toBuilder()
+        UserEntity userEntity = new UserEntity().toBuilder()
                 .firstName("Dereck")
                 .lastName("Mroz")
                 .mail("user2@mail.com")
                 .avatarUrl("https://avatars.dicebear.com/api/bottts/:tree.svg")
                 .build();
-        Long userTwoId = userRepository.save(user).getId();
+        Long userTwoId = userRepository.save(userEntity).getId();
 
-        Opinion opinion = new Opinion("I spend nice timjshfksuehfsehfkue",user, 8);
+        Opinion opinion = new Opinion("I spend nice timjshfksuehfsehfkue", userEntity, 8);
 
         //When
         Long fourthOpinion = repository.save(opinion).getId();

@@ -3,7 +3,7 @@ package com.kari.travelagency.mapper;
 
 
 import com.kari.travelagency.dto.UserDto;
-import com.kari.travelagency.entity.User;
+import com.kari.travelagency.entity.UserEntity;
 import org.junit.Test;
 
 
@@ -14,12 +14,12 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-public class UserMapperTest {
+public class UserEntityMapperTest {
 
     @Test
     public void mapToUserDtoAndBack(){
         //Given
-        User user = new User().toBuilder()
+        UserEntity userEntity = new UserEntity().toBuilder()
                 .firstName("Joanna")
                 .lastName("Mroz")
                 .mail("user@mail.com")
@@ -29,25 +29,25 @@ public class UserMapperTest {
         UserMapper mapper = new UserMapper();
 
         //When
-        UserDto userDto = mapper.toUserDto(user);
-        User newUser = mapper.toUser(userDto);
+        UserDto userDto = mapper.toUserDto(userEntity);
+        UserEntity newUserEntity = mapper.toUser(userDto);
 
         //Than
         assertEquals("user@mail.com",userDto.getMail());
-        assertEquals("Mroz",newUser.getLastName());
+        assertEquals("Mroz", newUserEntity.getLastName());
     }
 
     @Test
     public void mapToUserDtoList(){
         //Given
-        User user = new User().toBuilder()
+        UserEntity userEntity = new UserEntity().toBuilder()
                 .firstName("Joanna")
                 .lastName("Mroz")
                 .mail("user@mail.com")
                 .avatarUrl("https://avatars.dicebear.com/api/bottts/:tree.svg")
                 .build();
-        List<User> list = new ArrayList<>();
-        list.add(user);
+        List<UserEntity> list = new ArrayList<>();
+        list.add(userEntity);
         UserMapper mapper = new UserMapper();
 
         //When

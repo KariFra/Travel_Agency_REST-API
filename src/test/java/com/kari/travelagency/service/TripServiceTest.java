@@ -2,11 +2,10 @@ package com.kari.travelagency.service;
 
 import com.kari.travelagency.dto.TripDto;
 
-import com.kari.travelagency.entity.Opinion;
 import com.kari.travelagency.entity.Trip;
 
 
-import com.kari.travelagency.entity.User;
+import com.kari.travelagency.entity.UserEntity;
 import com.kari.travelagency.exception.NotFoundException;
 import com.kari.travelagency.mapper.TripMapper;
 import com.kari.travelagency.repository.OpinionRepository;
@@ -151,14 +150,14 @@ public class TripServiceTest {
     public void shouldUpdateTrip(){
         LOGGER.info("Updating trip");
         //Given
-        User newUser = new User().toBuilder()
+        UserEntity newUserEntity = new UserEntity().toBuilder()
                 .firstName("Joanna")
                 .lastName("Mroz")
                 .mail("user@mail.com")
                 .avatarUrl("https://avatars.dicebear.com/api/bottts/:tree.svg")
                 .build();
-        userRepository.save(newUser);
-        Long userId = userRepository.save(newUser).getId();
+        userRepository.save(newUserEntity);
+        Long userId = userRepository.save(newUserEntity).getId();
 
 
         Trip trip = new Trip().toBuilder()

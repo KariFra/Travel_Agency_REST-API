@@ -2,7 +2,7 @@ package com.kari.travelagency.controller;
 
 import com.google.gson.Gson;
 import com.kari.travelagency.dto.UserDto;
-import com.kari.travelagency.entity.User;
+import com.kari.travelagency.entity.UserEntity;
 import com.kari.travelagency.exception.NotFoundException;
 import com.kari.travelagency.mapper.UserMapper;
 import com.kari.travelagency.service.UserService;
@@ -32,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(UserController.class)
-public class UserControllerTest {
+public class UserEntityControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -103,7 +103,7 @@ public class UserControllerTest {
     @Test
     public void shouldCreateUser() throws Exception{
         //Given
-        User user = new User().toBuilder()
+        UserEntity userEntity = new UserEntity().toBuilder()
                 .firstName("Joanna")
                 .lastName("Mroz")
                 .mail("user@mail.com")
@@ -118,7 +118,7 @@ public class UserControllerTest {
         Gson gson = new Gson();
         String jsonContent = gson.toJson(userDto);
         //When & Then
-        when(mapper.toUser(any(UserDto.class))).thenReturn(user);
+        when(mapper.toUser(any(UserDto.class))).thenReturn(userEntity);
         mockMvc.perform(MockMvcRequestBuilders
                 .post("/v1/users")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -126,7 +126,7 @@ public class UserControllerTest {
                 .content(jsonContent))
                 .andExpect(status().is(200));
 
-        Mockito.verify(service).createNewUser(user);
+        Mockito.verify(service).createNewUser(userEntity);
 
     }
 

@@ -24,14 +24,14 @@ public class Opinion {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private UserEntity userEntity;
 
     private int rating;
 
 
-    public Opinion(String message, User user, int rating){
+    public Opinion(String message, UserEntity userEntity, int rating){
         this.message = message;
-        this.user = user;
+        this.userEntity = userEntity;
         this.rating = rating;
     }
 }

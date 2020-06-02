@@ -3,7 +3,7 @@ package com.kari.travelagency.service;
 import com.kari.travelagency.dto.UserDto;
 import com.kari.travelagency.entity.Opinion;
 import com.kari.travelagency.entity.Trip;
-import com.kari.travelagency.entity.User;
+import com.kari.travelagency.entity.UserEntity;
 import com.kari.travelagency.exception.NotFoundException;
 import com.kari.travelagency.mapper.UserMapper;
 import com.kari.travelagency.repository.UserRepository;
@@ -32,21 +32,21 @@ public class UserService {
         return userMapper.toUserDto(repository.getOne(id));
     }
 
-    public User createNewUser(User user){
+    public UserEntity createNewUser(UserEntity userEntity){
         List<Trip> trips = new ArrayList<>();
         List<Opinion> opinions = new ArrayList<>();
-        User newUser = new User().toBuilder()
-                .firstName(user.getFirstName())
-                .lastName(user.getLastName())
-                .mail(user.getMail())
-                .password(user.getPassword())
-                .role(user.getRole())
-                .avatarUrl(user.getAvatarUrl())
+        UserEntity newUserEntity = new UserEntity().toBuilder()
+                .firstName(userEntity.getFirstName())
+                .lastName(userEntity.getLastName())
+                .mail(userEntity.getMail())
+                .password(userEntity.getPassword())
+                .role(userEntity.getRole())
+                .avatarUrl(userEntity.getAvatarUrl())
                 .trips(trips)
                 .opinionsGiven(opinions)
                 .build();
 
-        return repository.save(newUser);
+        return repository.save(newUserEntity);
     }
 
     public void deleteUser(Long id){
@@ -55,11 +55,11 @@ public class UserService {
     }
 
     public UserDto updateUser(UserDto userDto){
-        User newUser = repository.getOne(userDto.getId());
-        newUser.setFirstName(userDto.getFirstName());
-        newUser.setLastName(userDto.getLastName());
-        newUser.setMail(userDto.getMail());
-        newUser.setPassword(userDto.getPassword());
-        return userMapper.toUserDto(repository.save(newUser));
+        UserEntity newUserEntity = repository.getOne(userDto.getId());
+        newUserEntity.setFirstName(userDto.getFirstName());
+        newUserEntity.setLastName(userDto.getLastName());
+        newUserEntity.setMail(userDto.getMail());
+        newUserEntity.setPassword(userDto.getPassword());
+        return userMapper.toUserDto(repository.save(newUserEntity));
     }
 }

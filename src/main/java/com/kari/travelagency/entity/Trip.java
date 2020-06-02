@@ -19,7 +19,7 @@ public class Trip {
 
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "user_id")
-    private User user;
+    private UserEntity userEntity;
 
     private Long price;
 

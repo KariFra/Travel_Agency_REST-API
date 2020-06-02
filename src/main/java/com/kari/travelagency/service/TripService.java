@@ -1,14 +1,10 @@
 package com.kari.travelagency.service;
 
 import com.kari.travelagency.dto.TripDto;
-import com.kari.travelagency.entity.Opinion;
 import com.kari.travelagency.entity.Trip;
-import com.kari.travelagency.entity.User;
 import com.kari.travelagency.exception.NotFoundException;
 import com.kari.travelagency.mapper.TripMapper;
-import com.kari.travelagency.repository.OpinionRepository;
 import com.kari.travelagency.repository.TripRepository;
-import com.kari.travelagency.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +34,7 @@ public class TripService {
     public void createNewTrip(Trip trip){
         Trip newTrip = new Trip().toBuilder()
                 .price(trip.getPrice())
-                .user(null)
+                .userEntity(null)
                 .city(trip.getCity())
                 .url(trip.getUrl())
                 .description(trip.getDescription())

@@ -2,7 +2,7 @@ package com.kari.travelagency.mapper;
 
 import com.kari.travelagency.dto.OpinionDto;
 import com.kari.travelagency.entity.Opinion;
-import com.kari.travelagency.entity.User;
+import com.kari.travelagency.entity.UserEntity;
 import com.kari.travelagency.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,15 +31,15 @@ public class OpinionMapperTest {
     @Test
     public void mapToOpinionDtoAndBack(){
         //Given
-        User user = new User().toBuilder()
+        UserEntity userEntity = new UserEntity().toBuilder()
                 .firstName("Joanna")
                 .lastName("Mroz")
                 .mail("user2@mail.com")
                 .avatarUrl("https://avatars.dicebear.com/api/bottts/:tree.svg")
                 .build();
 
-        userRepository.save(user);
-        Opinion opinion = new Opinion("This trip was awesome", user,10);
+        userRepository.save(userEntity);
+        Opinion opinion = new Opinion("This trip was awesome", userEntity,10);
 
         //When
         OpinionDto opinionDto = opinionMapper.toOpinionDto(opinion);
@@ -53,15 +53,15 @@ public class OpinionMapperTest {
     @Test
     public void mapToOpinionDtoList(){
         //Given
-        User user = new User().toBuilder()
+        UserEntity userEntity = new UserEntity().toBuilder()
                 .firstName("Joanna")
                 .lastName("Mroz")
                 .mail("user2@mail.com")
                 .avatarUrl("https://avatars.dicebear.com/api/bottts/:tree.svg")
                 .build();
-        userRepository.save(user);
-        Opinion opinionOne = new Opinion("This trip was awesome",user, 10);
-        Opinion opinionTwo = new Opinion("This trip was so bad I came back home",user, 1);
+        userRepository.save(userEntity);
+        Opinion opinionOne = new Opinion("This trip was awesome", userEntity, 10);
+        Opinion opinionTwo = new Opinion("This trip was so bad I came back home", userEntity, 1);
         List<Opinion> list = new ArrayList<>();
         list.add(opinionOne);
         list.add(opinionTwo);
