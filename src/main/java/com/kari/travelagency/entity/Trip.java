@@ -18,8 +18,8 @@ public class Trip {
     private Long id;
 
     @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private UserEntity userEntity;
+    @JoinColumn(name = "traveller_id")
+    private Traveller traveller;
 
     private Long price;
 
@@ -57,7 +57,6 @@ public class Trip {
     public String toString() {
         return "Trip{" +
                 "id=" + id +
-//                ", user=" + user +
                 ", price=" + price +
                 ", description='" + description + '\'' +
                 ", length=" + length +

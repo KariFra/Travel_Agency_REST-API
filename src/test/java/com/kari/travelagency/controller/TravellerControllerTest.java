@@ -1,11 +1,11 @@
 package com.kari.travelagency.controller;
 
 import com.google.gson.Gson;
-import com.kari.travelagency.dto.UserDto;
-import com.kari.travelagency.entity.UserEntity;
+import com.kari.travelagency.dto.TravellerDto;
+import com.kari.travelagency.entity.Traveller;
 import com.kari.travelagency.exception.NotFoundException;
-import com.kari.travelagency.mapper.UserMapper;
-import com.kari.travelagency.service.UserService;
+import com.kari.travelagency.mapper.TravellerMapper;
+import com.kari.travelagency.service.TravellerService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -31,23 +31,23 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(UserController.class)
-public class UserEntityControllerTest {
+@WebMvcTest(TravellerController.class)
+public class TravellerControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private UserService service;
+    private TravellerService service;
 
     @MockBean
-    private UserMapper mapper;
+    private TravellerMapper mapper;
 
     @Test
     public void shouldGetUsers() throws Exception{
         //Given
-        List<UserDto> list = new ArrayList<>();
-        list.add(new UserDto().toBuilder()
+        List<TravellerDto> list = new ArrayList<>();
+        list.add(new TravellerDto().toBuilder()
                 .id(1L)
                 .firstName("Marc")
                 .lastName("Bell")
@@ -68,7 +68,7 @@ public class UserEntityControllerTest {
     @Test
     public void shouldGetUser() throws Exception{
         //Given
-        UserDto userDto = new UserDto().toBuilder()
+        TravellerDto travellerDto = new TravellerDto().toBuilder()
                 .id(1L)
                 .firstName("Marc")
                 .lastName("Bell")
@@ -76,7 +76,7 @@ public class UserEntityControllerTest {
                 .avatarUrl("https://avatars.dicebear.com/api/bottts/:ball.svg")
                 .build();
         //When & Then
-        when(service.getUser(1L)).thenReturn(userDto);
+        when(service.getUser(1L)).thenReturn(travellerDto);
         mockMvc.perform(get("/v1/users/1").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$.id",is(1)))
@@ -103,22 +103,22 @@ public class UserEntityControllerTest {
     @Test
     public void shouldCreateUser() throws Exception{
         //Given
-        UserEntity userEntity = new UserEntity().toBuilder()
+        Traveller traveller = new Traveller().toBuilder()
                 .firstName("Joanna")
                 .lastName("Mroz")
                 .mail("user@mail.com")
                 .avatarUrl("https://avatars.dicebear.com/api/bottts/:tree.svg")
                 .build();
-        UserDto userDto = new UserDto().toBuilder()
+        TravellerDto travellerDto = new TravellerDto().toBuilder()
                 .firstName("Joanna")
                 .lastName("Mroz")
                 .mail("user@mail.com")
                 .avatarUrl("https://avatars.dicebear.com/api/bottts/:tree.svg")
                 .build();
         Gson gson = new Gson();
-        String jsonContent = gson.toJson(userDto);
+        String jsonContent = gson.toJson(travellerDto);
         //When & Then
-        when(mapper.toUser(any(UserDto.class))).thenReturn(userEntity);
+        when(mapper.toUser(any(TravellerDto.class))).thenReturn(traveller);
         mockMvc.perform(MockMvcRequestBuilders
                 .post("/v1/users")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -126,14 +126,14 @@ public class UserEntityControllerTest {
                 .content(jsonContent))
                 .andExpect(status().is(200));
 
-        Mockito.verify(service).createNewUser(userEntity);
+        Mockito.verify(service).createNewUser(traveller);
 
     }
 
     @Test
     public void shouldUpdateUser() throws Exception{
         //Given
-        UserDto userDto = new UserDto().toBuilder()
+        TravellerDto travellerDto = new TravellerDto().toBuilder()
                 .id(1L)
                 .firstName("Marc")
                 .lastName("Bell")
@@ -142,9 +142,9 @@ public class UserEntityControllerTest {
                 .build();
 
         //When & Then
-        when(service.updateUser(any(UserDto.class))).thenReturn(userDto);
+        when(service.updateUser(any(TravellerDto.class))).thenReturn(travellerDto);
         Gson gson = new Gson();
-        String jsonContent = gson.toJson(userDto);
+        String jsonContent = gson.toJson(travellerDto);
         mockMvc.perform(put("/v1/users").contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(jsonContent))

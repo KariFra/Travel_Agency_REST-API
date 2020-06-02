@@ -34,7 +34,7 @@ public class TripService {
     public void createNewTrip(Trip trip){
         Trip newTrip = new Trip().toBuilder()
                 .price(trip.getPrice())
-                .userEntity(null)
+                .traveller(null)
                 .city(trip.getCity())
                 .url(trip.getUrl())
                 .description(trip.getDescription())

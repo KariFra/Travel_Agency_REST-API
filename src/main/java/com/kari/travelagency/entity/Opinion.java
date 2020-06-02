@@ -23,15 +23,15 @@ public class Opinion {
     private String message;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserEntity userEntity;
+    @JoinColumn(name = "traveller_id")
+    private Traveller traveller;
 
     private int rating;
 
 
-    public Opinion(String message, UserEntity userEntity, int rating){
+    public Opinion(String message, Traveller traveller, int rating){
         this.message = message;
-        this.userEntity = userEntity;
+        this.traveller = traveller;
         this.rating = rating;
     }
 }

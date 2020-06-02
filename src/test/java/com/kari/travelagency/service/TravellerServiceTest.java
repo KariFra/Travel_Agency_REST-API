@@ -1,10 +1,10 @@
 package com.kari.travelagency.service;
 
-import com.kari.travelagency.dto.UserDto;
-import com.kari.travelagency.entity.UserEntity;
+import com.kari.travelagency.dto.TravellerDto;
+import com.kari.travelagency.entity.Traveller;
 import com.kari.travelagency.exception.NotFoundException;
-import com.kari.travelagency.mapper.UserMapper;
-import com.kari.travelagency.repository.UserRepository;
+import com.kari.travelagency.mapper.TravellerMapper;
+import com.kari.travelagency.repository.TravellerRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,17 +24,17 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
-public class UserEntityServiceTest {
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserEntityServiceTest.class);
+public class TravellerServiceTest {
+    private static final Logger LOGGER = LoggerFactory.getLogger(TravellerServiceTest.class);
 
     @Autowired
-    private UserRepository repository;
+    private TravellerRepository repository;
 
     @Autowired
-    private UserService service;
+    private TravellerService service;
 
     @Autowired
-    private UserMapper mapper;
+    private TravellerMapper mapper;
 
     private Long userOneId = 0L;
     private Long userTwoId = 0L;
@@ -42,31 +42,31 @@ public class UserEntityServiceTest {
     @Before
     public void prep(){
         LOGGER.info("Putting two users to database.");
-        UserEntity userEntityOne = new UserEntity().toBuilder()
+        Traveller travellerOne = new Traveller().toBuilder()
                 .firstName("Joanna")
                 .lastName("Mroz")
                 .mail("user@mail.com")
                 .avatarUrl("https://avatars.dicebear.com/api/bottts/:tree.svg")
                 .build();
-        UserEntity userEntityTwo = new UserEntity().toBuilder()
+        Traveller travellerTwo = new Traveller().toBuilder()
                 .firstName("Marc")
                 .lastName("Bell")
                 .mail("user@mail.com")
                 .avatarUrl("https://avatars.dicebear.com/api/bottts/:ball.svg")
                 .build();
-        List<UserEntity> list = new ArrayList<>();
-        list.add(userEntityOne);
-        list.add(userEntityTwo);
+        List<Traveller> list = new ArrayList<>();
+        list.add(travellerOne);
+        list.add(travellerTwo);
         repository.saveAll(list);
-        userOneId = userEntityOne.getId();
-        userTwoId = userEntityTwo.getId();
+        userOneId = travellerOne.getId();
+        userTwoId = travellerTwo.getId();
     }
 
     @Test
     public void shouldGetUsers(){
         LOGGER.info("Getting users.");
         //When
-        List<UserDto> userList = service.getUsers();
+        List<TravellerDto> userList = service.getUsers();
         System.out.println(userList);
         //Than
         assertTrue(userList.size()!=0);
@@ -80,8 +80,8 @@ public class UserEntityServiceTest {
     public void shouldGetUser(){
         LOGGER.info("Getting one user");
         //When
-        List<UserEntity> list = repository.findAll();
-        UserDto user = service.getUser(userOneId);
+        List<Traveller> list = repository.findAll();
+        TravellerDto user = service.getUser(userOneId);
 
         //Than
         assertEquals("Joanna",user.getFirstName());
@@ -93,7 +93,7 @@ public class UserEntityServiceTest {
     @Test(expected = NotFoundException.class)
     public void shouldGetUserException() throws NotFoundException{
         //When
-        UserDto user = service.getUser(500000L);
+        TravellerDto user = service.getUser(500000L);
         //Cleanup
         repository.deleteById(userOneId);
         repository.deleteById(userTwoId);
@@ -103,19 +103,19 @@ public class UserEntityServiceTest {
     public void shouldUpdateUser(){
         LOGGER.info("Updating user.");
         //Given
-        UserEntity beforeUserEntity = new UserEntity().toBuilder()
+        Traveller beforeTraveller = new Traveller().toBuilder()
                 .firstName("Joanna")
                 .lastName("Mroz")
                 .mail("user@mail.com")
                 .avatarUrl("https://avatars.dicebear.com/api/bottts/:tree.svg")
                 .build();
-        repository.save(beforeUserEntity);
-        Long num = beforeUserEntity.getId();
+        repository.save(beforeTraveller);
+        Long num = beforeTraveller.getId();
         //When
-        beforeUserEntity.setFirstName("July");
-        beforeUserEntity.setLastName("Bard-Dell");
-        beforeUserEntity.setMail("user@mail.com");
-        service.updateUser(mapper.toUserDto(beforeUserEntity));
+        beforeTraveller.setFirstName("July");
+        beforeTraveller.setLastName("Bard-Dell");
+        beforeTraveller.setMail("user@mail.com");
+        service.updateUser(mapper.toUserDto(beforeTraveller));
         //Than
         assertEquals("July",repository.getOne(num).getFirstName());
         assertEquals("Bard-Dell",repository.getOne(num).getLastName());
@@ -130,17 +130,17 @@ public class UserEntityServiceTest {
     public void shouldCreateUser(){
         LOGGER.info("Creating user");
         //Given
-        UserEntity userEntity = new UserEntity().toBuilder()
+        Traveller traveller = new Traveller().toBuilder()
                 .firstName("Joanna")
                 .lastName("Mroz")
                 .mail("user@mail.com")
                 .avatarUrl("https://avatars.dicebear.com/api/bottts/:tree.svg")
                 .build();
-        List<UserEntity> listOne = repository.findAll();
+        List<Traveller> listOne = repository.findAll();
         int sizeOne = listOne.size();
-        Long thirdUserId = service.createNewUser(userEntity).getId();
+        Long thirdUserId = service.createNewUser(traveller).getId();
         //When
-        List<UserEntity> listTwo = repository.findAll();
+        List<Traveller> listTwo = repository.findAll();
         int sizeTwo = listTwo.size();
 
         //Than
@@ -155,18 +155,18 @@ public class UserEntityServiceTest {
     public void shouldDeleteUser(){
         LOGGER.info("Deleting all of the users.");
         //Given
-        UserEntity userEntity = new UserEntity().toBuilder()
+        Traveller traveller = new Traveller().toBuilder()
                 .firstName("Dereck")
                 .lastName("Mroz")
                 .mail("user2@mail.com")
                 .avatarUrl("https://avatars.dicebear.com/api/bottts/:tree.svg")
                 .build();
-        Long userId = repository.save(userEntity).getId();
-        List<UserEntity> listOne = repository.findAll();
+        Long userId = repository.save(traveller).getId();
+        List<Traveller> listOne = repository.findAll();
         //When
         int sizeOne = listOne.size();
         service.deleteUser(userId);
-        List<UserEntity> listTwo = repository.findAll();
+        List<Traveller> listTwo = repository.findAll();
         int sizeTwo = listTwo.size();
         //Than
         assertTrue(sizeOne - sizeTwo == 1);

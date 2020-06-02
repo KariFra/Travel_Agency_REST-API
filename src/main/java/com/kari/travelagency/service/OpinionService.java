@@ -29,7 +29,7 @@ public class OpinionService {
     }
 
     public Opinion createNewOpinion(Opinion opinion){
-        Opinion newOpinion = new Opinion(opinion.getMessage(), opinion.getUserEntity(), opinion.getRating());
+        Opinion newOpinion = new Opinion(opinion.getMessage(), opinion.getTraveller(), opinion.getRating());
         return repository.save(newOpinion);
     }
 

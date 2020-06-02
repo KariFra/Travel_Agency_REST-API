@@ -2,8 +2,8 @@ package com.kari.travelagency.mapper;
 
 
 
-import com.kari.travelagency.dto.UserDto;
-import com.kari.travelagency.entity.UserEntity;
+import com.kari.travelagency.dto.TravellerDto;
+import com.kari.travelagency.entity.Traveller;
 import org.junit.Test;
 
 
@@ -14,44 +14,44 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-public class UserEntityMapperTest {
+public class TravellerMapperTest {
 
     @Test
     public void mapToUserDtoAndBack(){
         //Given
-        UserEntity userEntity = new UserEntity().toBuilder()
+        Traveller traveller = new Traveller().toBuilder()
                 .firstName("Joanna")
                 .lastName("Mroz")
                 .mail("user@mail.com")
                 .avatarUrl("https://avatars.dicebear.com/api/bottts/:tree.svg")
                 .build();
 
-        UserMapper mapper = new UserMapper();
+        TravellerMapper mapper = new TravellerMapper();
 
         //When
-        UserDto userDto = mapper.toUserDto(userEntity);
-        UserEntity newUserEntity = mapper.toUser(userDto);
+        TravellerDto travellerDto = mapper.toUserDto(traveller);
+        Traveller newTraveller = mapper.toUser(travellerDto);
 
         //Than
-        assertEquals("user@mail.com",userDto.getMail());
-        assertEquals("Mroz", newUserEntity.getLastName());
+        assertEquals("user@mail.com", travellerDto.getMail());
+        assertEquals("Mroz", newTraveller.getLastName());
     }
 
     @Test
     public void mapToUserDtoList(){
         //Given
-        UserEntity userEntity = new UserEntity().toBuilder()
+        Traveller traveller = new Traveller().toBuilder()
                 .firstName("Joanna")
                 .lastName("Mroz")
                 .mail("user@mail.com")
                 .avatarUrl("https://avatars.dicebear.com/api/bottts/:tree.svg")
                 .build();
-        List<UserEntity> list = new ArrayList<>();
-        list.add(userEntity);
-        UserMapper mapper = new UserMapper();
+        List<Traveller> list = new ArrayList<>();
+        list.add(traveller);
+        TravellerMapper mapper = new TravellerMapper();
 
         //When
-        List<UserDto> listDto = mapper.toUserDtoList(list);
+        List<TravellerDto> listDto = mapper.toUserDtoList(list);
 
         //Than
         assertEquals(1,listDto.size());

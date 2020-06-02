@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class UserEntity {
+public class Traveller {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,13 +30,13 @@ public class UserEntity {
     private String avatarUrl;
 
     @OneToMany(targetEntity = Trip.class,
-            mappedBy = "user",
+            mappedBy = "traveller",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
     private List<Trip> trips;
 
     @OneToMany(targetEntity = Opinion.class,
-            mappedBy = "user",
+            mappedBy = "traveller",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY)
     private List<Opinion> opinionsGiven;
@@ -48,9 +48,9 @@ public class UserEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        UserEntity userEntity = (UserEntity) o;
+        Traveller traveller = (Traveller) o;
 
-        return id.equals(userEntity.id);
+        return id.equals(traveller.id);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class UserEntity {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Traveller{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +

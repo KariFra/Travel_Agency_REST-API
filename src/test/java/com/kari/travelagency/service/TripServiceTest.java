@@ -5,12 +5,12 @@ import com.kari.travelagency.dto.TripDto;
 import com.kari.travelagency.entity.Trip;
 
 
-import com.kari.travelagency.entity.UserEntity;
+import com.kari.travelagency.entity.Traveller;
 import com.kari.travelagency.exception.NotFoundException;
 import com.kari.travelagency.mapper.TripMapper;
 import com.kari.travelagency.repository.OpinionRepository;
 import com.kari.travelagency.repository.TripRepository;
-import com.kari.travelagency.repository.UserRepository;
+import com.kari.travelagency.repository.TravellerRepository;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,7 +43,7 @@ public class TripServiceTest {
     private TripRepository tripRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private TravellerRepository userRepository;
 
     @Autowired
     private OpinionRepository opinionRepository;
@@ -150,14 +150,14 @@ public class TripServiceTest {
     public void shouldUpdateTrip(){
         LOGGER.info("Updating trip");
         //Given
-        UserEntity newUserEntity = new UserEntity().toBuilder()
+        Traveller newTraveller = new Traveller().toBuilder()
                 .firstName("Joanna")
                 .lastName("Mroz")
                 .mail("user@mail.com")
                 .avatarUrl("https://avatars.dicebear.com/api/bottts/:tree.svg")
                 .build();
-        userRepository.save(newUserEntity);
-        Long userId = userRepository.save(newUserEntity).getId();
+        userRepository.save(newTraveller);
+        Long userId = userRepository.save(newTraveller).getId();
 
 
         Trip trip = new Trip().toBuilder()
