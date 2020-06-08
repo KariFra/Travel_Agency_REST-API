@@ -40,27 +40,16 @@ public class OpinionServiceTest {
     @Autowired
     private OpinionRepository repository;
 
-    @Autowired
-    private TravellerRepository userRepository;
 
     private Long opinionOneId = 0L;
     private Long opinionTwoId = 0L;
-    private Long userId = 0L;
 
     @Before
     public void prep(){
         LOGGER.info("Putting two opinions into database.");
 
-        Traveller traveller = new Traveller().toBuilder()
-                .firstName("Joanna")
-                .lastName("Mroz")
-                .mail("user2@mail.com")
-                .avatarUrl("https://avatars.dicebear.com/api/bottts/:tree.svg")
-                .build();
-        userId = userRepository.save(traveller).getId();
-
-        Opinion opinionOne = new Opinion("It suckskhfkhskuhfusehfus", traveller, 2);
-        Opinion opinionTwo = new Opinion("It is awesomeefkhsefuesfhsehkf!", traveller, 10);
+        Opinion opinionOne = new Opinion("It suckskhfkhskuhfusehfus", "traveller", 2);
+        Opinion opinionTwo = new Opinion("It is awesomeefkhsefuesfhsehkf!", "traveller", 10);
 
         List<Opinion> list = new ArrayList<>();
         list.add(opinionOne);
@@ -78,7 +67,6 @@ public class OpinionServiceTest {
         //Than
         assertTrue(list.size()>= 1);
         //Cleanup
-        userRepository.deleteById(userId);
         repository.deleteById(opinionOneId);
         repository.deleteById(opinionTwoId);
     }
@@ -91,7 +79,6 @@ public class OpinionServiceTest {
         //Than
         assertEquals(2,opinion.getRating());
         //Cleanup
-        userRepository.deleteById(userId);
         repository.deleteById(opinionOneId);
         repository.deleteById(opinionTwoId);
     }
@@ -101,7 +88,6 @@ public class OpinionServiceTest {
         //When
         OpinionDto opinionDto = service.getOpinion(50000L);
         //Cleanup
-        userRepository.deleteById(userId);
         repository.deleteById(opinionOneId);
         repository.deleteById(opinionTwoId);
     }
@@ -110,15 +96,8 @@ public class OpinionServiceTest {
     public void shouldCreateTrip(){
         LOGGER.info("Creating opinion");
         //Given
-        Traveller traveller = new Traveller().toBuilder()
-                .firstName("Dereck")
-                .lastName("Mroz")
-                .mail("user2@mail.com")
-                .avatarUrl("https://avatars.dicebear.com/api/bottts/:tree.svg")
-                .build();
-        Long userTwoId = userRepository.save(traveller).getId();
 
-        Opinion opinion = new Opinion("I spend nice timesjefsjkefskehf", traveller, 8);
+        Opinion opinion = new Opinion("I spend nice timesjefsjkefskehf", "traveller", 8);
         List<Opinion> listOne = repository.findAll();
         int sizeOne = listOne.size();
         //When
@@ -129,8 +108,6 @@ public class OpinionServiceTest {
         //Than
         assertTrue(sizeTwo - sizeOne == 1);
         //Cleanup
-        userRepository.deleteById(userId);
-        userRepository.deleteById(userTwoId);
         repository.deleteById(opinionOneId);
         repository.deleteById(opinionTwoId);
         repository.deleteById(fourthOpinion);
@@ -140,15 +117,8 @@ public class OpinionServiceTest {
     public void shouldDeleteOpinion(){
         LOGGER.info("Deleting all of the opinions.");
         //Given
-        Traveller traveller = new Traveller().toBuilder()
-                .firstName("Dereck")
-                .lastName("Mroz")
-                .mail("user2@mail.com")
-                .avatarUrl("https://avatars.dicebear.com/api/bottts/:tree.svg")
-                .build();
-        Long userTwoId = userRepository.save(traveller).getId();
 
-        Opinion opinion = new Opinion("I spend nice timjshfksuehfsehfkue", traveller, 8);
+        Opinion opinion = new Opinion("I spend nice timjshfksuehfsehfkue", "traveller", 8);
 
         //When
         Long fourthOpinion = repository.save(opinion).getId();
@@ -161,8 +131,6 @@ public class OpinionServiceTest {
         //Than
         assertTrue(sizeOne - sizeTwo == 1);
         //Cleanup
-        userRepository.deleteById(userId);
-        userRepository.deleteById(userTwoId);
         repository.deleteById(opinionOneId);
         repository.deleteById(opinionTwoId);
 

@@ -29,6 +29,10 @@ public class TripDto {
 
     private String length;
 
+    private String food;
+
+    private int hotelStars;
+
     private List<String> additions;
 
 

@@ -13,17 +13,12 @@ import java.util.stream.Collectors;
 @Component
 public class OpinionMapper {
 
-    @Autowired
-    private TravellerRepository userRepository;
-
-
     public Opinion toOpinion(OpinionDto opinionDto){
-        Traveller traveller = userRepository.getOne(opinionDto.getUserId());
-        return new Opinion(opinionDto.getId(), opinionDto.getMessage(), traveller, opinionDto.getRating());
+        return new Opinion(opinionDto.getId(), opinionDto.getMessage(), opinionDto.getUserUrl(), opinionDto.getRating());
     }
 
     public OpinionDto toOpinionDto(Opinion opinion){
-        return new OpinionDto(opinion.getId(), opinion.getMessage(), opinion.getTraveller().getId(), opinion.getRating());
+        return new OpinionDto(opinion.getId(), opinion.getMessage(), opinion.getTravellerUrl(), opinion.getRating());
     }
 
 

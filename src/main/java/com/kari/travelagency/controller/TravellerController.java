@@ -33,7 +33,7 @@ public class TravellerController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public void create(@RequestBody TravellerDto user){
-        travellerService.createNewUser(mapper.toUser(user));
+        travellerService.createNewUser(mapper.toTraveller(user));
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

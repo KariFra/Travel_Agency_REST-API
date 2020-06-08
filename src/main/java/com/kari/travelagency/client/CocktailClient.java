@@ -3,6 +3,7 @@ package com.kari.travelagency.client;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.kari.travelagency.dto.CocktailDto;
 import com.kari.travelagency.dto.DrinkDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,7 +23,7 @@ public class CocktailClient {
     private String drinkName;
     private String drinkRecipe;
 
-    public DrinkDto getCocktail() {
+    public CocktailDto getCocktail() {
         String result = restTemplate.getForObject(apiEndpoint, String.class);
         JsonObject jsonObject = JsonParser.parseString(result).getAsJsonObject();
         JsonArray array = jsonObject.getAsJsonArray("drinks");
@@ -30,7 +31,7 @@ public class CocktailClient {
             drinkName = array.get(i).getAsJsonObject().get("strDrink").getAsString();
             drinkRecipe = array.get(i).getAsJsonObject().get("strInstructions").getAsString();
         }
-        return new DrinkDto(drinkName,drinkRecipe);
+        return new CocktailDto(drinkName,drinkRecipe);
     }
 
 

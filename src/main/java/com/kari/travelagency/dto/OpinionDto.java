@@ -18,7 +18,7 @@ public class OpinionDto {
 
     private String message;
 
-    private Long userId;
+    private String userUrl;
 
     private int rating;
 

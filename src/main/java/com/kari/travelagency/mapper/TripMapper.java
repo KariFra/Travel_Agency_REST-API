@@ -2,6 +2,8 @@ package com.kari.travelagency.mapper;
 
 import com.kari.travelagency.dto.TripDto;
 import com.kari.travelagency.entity.Trip;
+import com.kari.travelagency.repository.TripRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
@@ -12,7 +14,8 @@ import java.util.stream.Collectors;
 @Component
 public class TripMapper {
 
-
+    @Autowired
+    private TripRepository repository;
 
     public Trip toTrip(TripDto tripDto){
         return new Trip().toBuilder()
@@ -22,6 +25,8 @@ public class TripMapper {
                 .url(tripDto.getUrl())
                 .description(tripDto.getDescription())
                 .length(tripDto.getLength())
+                .food(tripDto.getFood())
+                .hotelStars(tripDto.getHotelStars())
                 .additions(tripDto.getAdditions())
                 .build();
     }
@@ -34,6 +39,8 @@ public class TripMapper {
                 .url(trip.getUrl())
                 .description(trip.getDescription())
                 .length(trip.getLength())
+                .food(trip.getFood())
+                .hotelStars(trip.getHotelStars())
                 .additions(trip.getAdditions())
                 .build();
     }
@@ -41,6 +48,19 @@ public class TripMapper {
     public List<TripDto> toTripDtoListWhole(List<Trip> list){
         return list.stream()
                 .map(trip -> toTripDto(trip))
+                .collect(Collectors.toList());
+    }
+
+    public List<Trip> toTripList (List<Long> list){
+        return list.stream()
+                .map(id -> repository.getOne(id))
+                .collect(Collectors.toList());
+    }
+
+    public List<Long> toTripIdList(List<Trip> list){
+        System.out.println(list);
+        return list.stream()
+                .map(trip -> trip.getId())
                 .collect(Collectors.toList());
     }
 }

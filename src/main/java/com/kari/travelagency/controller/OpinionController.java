@@ -35,6 +35,11 @@ public class OpinionController {
         return mapper.toOpinionDto(service.createNewOpinion(mapper.toOpinion(opinionDto)));
     }
 
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public OpinionDto updateOpinion(@RequestBody OpinionDto opinionDto){
+        return mapper.toOpinionDto(service.updateOpinion(mapper.toOpinion(opinionDto)));
+    }
+
     @DeleteMapping("/{id}")
     public void deleteOpinion(@PathVariable Long id) {service.deleteOpinion(id);}
 

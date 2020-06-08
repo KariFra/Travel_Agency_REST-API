@@ -118,7 +118,7 @@ public class TravellerControllerTest {
         Gson gson = new Gson();
         String jsonContent = gson.toJson(travellerDto);
         //When & Then
-        when(mapper.toUser(any(TravellerDto.class))).thenReturn(traveller);
+        when(mapper.toTraveller(any(TravellerDto.class))).thenReturn(traveller);
         mockMvc.perform(MockMvcRequestBuilders
                 .post("/v1/users")
                 .contentType(MediaType.APPLICATION_JSON)

@@ -52,7 +52,7 @@ public class OpinionControllerTest {
     public void shouldGetOpinions() throws Exception{
         //Given
         List<OpinionDto> list = new ArrayList<>();
-        list.add(new OpinionDto(1L,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", 1L, 10));
+        list.add(new OpinionDto(1L,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "1", 10));
 
         //When & Than
         when(service.getOpinions()).thenReturn(list);
@@ -60,7 +60,7 @@ public class OpinionControllerTest {
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$[0].id",is(1)))
                 .andExpect(jsonPath("$[0].message",is("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")))
-                .andExpect(jsonPath("$[0].userId",is(1)))
+                .andExpect(jsonPath("$[0].userUrl",is("1")))
                 .andExpect(jsonPath("$[0].rating",is(10)));
 
 
@@ -70,7 +70,7 @@ public class OpinionControllerTest {
     public void shouldGetOpinion() throws Exception{
         //Given
 
-        OpinionDto opinionDto = new OpinionDto(1L,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", 1L, 10);
+        OpinionDto opinionDto = new OpinionDto(1L,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "1", 10);
 
         //When & Than
         when(service.getOpinion(1L)).thenReturn(opinionDto);
@@ -78,7 +78,7 @@ public class OpinionControllerTest {
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$.id",is(1)))
                 .andExpect(jsonPath("$.message",is("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")))
-                .andExpect(jsonPath("$.userId",is(1)))
+                .andExpect(jsonPath("$.userUrl",is("1")))
                 .andExpect(jsonPath("$.rating",is(10)));
     }
 
@@ -102,15 +102,9 @@ public class OpinionControllerTest {
     public void shouldCreateOpinion() throws Exception{
         //Given
 
-        Traveller traveller = new Traveller().toBuilder()
-                .id(1L)
-                .firstName("Joanna")
-                .lastName("Mroz")
-                .mail("user@mail.com")
-                .avatarUrl("https://avatars.dicebear.com/api/bottts/:tree.svg")
-                .build();
-        OpinionDto opinionDto = new OpinionDto(1L,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", 1L, 10);
-        Opinion opinion = new Opinion(1L,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", traveller, 10 );
+
+        OpinionDto opinionDto = new OpinionDto(1L,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "1", 10);
+        Opinion opinion = new Opinion(1L,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "1", 10 );
 
         //When & Than
         when(mapper.toOpinion(any(OpinionDto.class))).thenReturn(opinion);
@@ -127,7 +121,7 @@ public class OpinionControllerTest {
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$.id",is(1)))
                 .andExpect(jsonPath("$.message",is("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")))
-                .andExpect(jsonPath("$.userId",is(1)))
+                .andExpect(jsonPath("$.userUrl",is("1")))
                 .andExpect(jsonPath("$.rating",is(10)));
 
     }

@@ -32,6 +32,10 @@ public class Trip {
 
     private String length;
 
+    private String food;
+
+    private int hotelStars;
+
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "trip_additions", joinColumns = @JoinColumn(name = "trip_id"))

@@ -22,8 +22,6 @@ import static org.junit.Assert.assertEquals;
 @Transactional
 public class OpinionMapperTest {
 
-    @Autowired
-    private TravellerRepository userRepository;
 
     @Autowired
     private OpinionMapper opinionMapper;
@@ -31,15 +29,7 @@ public class OpinionMapperTest {
     @Test
     public void mapToOpinionDtoAndBack(){
         //Given
-        Traveller traveller = new Traveller().toBuilder()
-                .firstName("Joanna")
-                .lastName("Mroz")
-                .mail("user2@mail.com")
-                .avatarUrl("https://avatars.dicebear.com/api/bottts/:tree.svg")
-                .build();
-
-        userRepository.save(traveller);
-        Opinion opinion = new Opinion("This trip was awesome", traveller,10);
+        Opinion opinion = new Opinion("This trip was awesome", "traveller",10);
 
         //When
         OpinionDto opinionDto = opinionMapper.toOpinionDto(opinion);
@@ -53,15 +43,9 @@ public class OpinionMapperTest {
     @Test
     public void mapToOpinionDtoList(){
         //Given
-        Traveller traveller = new Traveller().toBuilder()
-                .firstName("Joanna")
-                .lastName("Mroz")
-                .mail("user2@mail.com")
-                .avatarUrl("https://avatars.dicebear.com/api/bottts/:tree.svg")
-                .build();
-        userRepository.save(traveller);
-        Opinion opinionOne = new Opinion("This trip was awesome", traveller, 10);
-        Opinion opinionTwo = new Opinion("This trip was so bad I came back home", traveller, 1);
+
+        Opinion opinionOne = new Opinion("This trip was awesome", "traveller", 10);
+        Opinion opinionTwo = new Opinion("This trip was so bad I came back home", "traveller", 1);
         List<Opinion> list = new ArrayList<>();
         list.add(opinionOne);
         list.add(opinionTwo);

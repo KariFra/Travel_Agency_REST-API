@@ -17,12 +17,8 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@Transactional
-public class TripMapperTest {
-    private static final Logger LOGGER = LoggerFactory.getLogger(TripMapperTest.class);
 
+public class TripMapperTest {
 
 
     @Test
@@ -34,13 +30,10 @@ public class TripMapperTest {
                 .length("5 days")
                 .build();
         TripMapper mapper = new TripMapper();
-        LOGGER.info("PRINTING OUT TRIP!!!!!!!!!!!!!!!!!!!!!!");
-        System.out.println(trip);
+
 
         //When
         TripDto tripDto = mapper.toTripDto(trip);
-        LOGGER.info("PRINTING OUT TRIPDTO!!!!!!!!!!!!!!!!!!!!!!");
-        System.out.println(tripDto);
         Trip newTrip = mapper.toTrip(tripDto);
 
         //Than

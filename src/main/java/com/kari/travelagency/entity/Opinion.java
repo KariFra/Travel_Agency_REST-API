@@ -19,19 +19,16 @@ public class Opinion {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Size(min=10, max=400)
+    @Size(min=10, max=1000)
     private String message;
 
-    @ManyToOne
-    @JoinColumn(name = "traveller_id")
-    private Traveller traveller;
+    private String travellerUrl;
 
     private int rating;
 
-
-    public Opinion(String message, Traveller traveller, int rating){
+    public Opinion(String message, String travellerUrl, int rating){
         this.message = message;
-        this.traveller = traveller;
+        this.travellerUrl = travellerUrl;
         this.rating = rating;
     }
 }

@@ -2,7 +2,7 @@ package com.kari.travelagency.controller;
 
 
 import com.kari.travelagency.client.CocktailClient;
-import com.kari.travelagency.dto.DrinkDto;
+import com.kari.travelagency.dto.CocktailDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +18,7 @@ public class CocktailController {
     private CocktailClient cocktailClient;
 
     @GetMapping
-    public DrinkDto getCocktail(){
+    public CocktailDto getCocktail(){
      return cocktailClient.getCocktail();
     }
 }

@@ -35,11 +35,9 @@ public class Traveller {
             fetch = FetchType.LAZY)
     private List<Trip> trips;
 
-    @OneToMany(targetEntity = Opinion.class,
-            mappedBy = "traveller",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY)
-    private List<Opinion> opinionsGiven;
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "traveller_opinions", joinColumns = @JoinColumn(name = "traveller_id"))
+    private List<String> opinions;
 
 
 
@@ -65,7 +63,11 @@ public class Traveller {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", mail='" + mail + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
                 ", avatarUrl='" + avatarUrl + '\'' +
+                ", trips=" + trips +
+                ", opinions=" + opinions +
                 '}';
     }
 }

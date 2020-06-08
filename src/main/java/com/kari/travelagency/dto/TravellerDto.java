@@ -30,16 +30,21 @@ public class TravellerDto {
 
     private List<Long> tripsId;
 
-
+    private List<String> opinions;
 
 
     @Override
     public String toString() {
         return "TravellerDto{" +
-                "firstName='" + firstName + '\'' +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", mail='" + mail + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
                 ", avatarUrl='" + avatarUrl + '\'' +
+                ", tripsId=" + tripsId +
+                ", opinions=" + opinions +
                 '}';
     }
 }

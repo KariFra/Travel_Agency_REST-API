@@ -29,8 +29,16 @@ public class OpinionService {
     }
 
     public Opinion createNewOpinion(Opinion opinion){
-        Opinion newOpinion = new Opinion(opinion.getMessage(), opinion.getTraveller(), opinion.getRating());
+        Opinion newOpinion = new Opinion(opinion.getMessage(), opinion.getTravellerUrl(), opinion.getRating());
         return repository.save(newOpinion);
+    }
+
+    public Opinion updateOpinion(Opinion opinion){
+        Opinion oldOpinion = repository.getOne(opinion.getId());
+        oldOpinion.setMessage(opinion.getMessage());
+        oldOpinion.setTravellerUrl(opinion.getTravellerUrl());
+        oldOpinion.setRating(opinion.getRating());
+        return repository.save(oldOpinion);
     }
 
     public void deleteOpinion(Long id){

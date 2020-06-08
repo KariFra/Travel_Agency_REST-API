@@ -1,9 +1,11 @@
 package com.kari.travelagency.service;
 
 import com.kari.travelagency.dto.TripDto;
+import com.kari.travelagency.entity.Traveller;
 import com.kari.travelagency.entity.Trip;
 import com.kari.travelagency.exception.NotFoundException;
 import com.kari.travelagency.mapper.TripMapper;
+import com.kari.travelagency.repository.TravellerRepository;
 import com.kari.travelagency.repository.TripRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,9 +19,11 @@ public class TripService {
     @Autowired
     private TripRepository repository;
 
-
     @Autowired
     private TripMapper mapper;
+
+    @Autowired
+    private TravellerRepository travellerRepository;
 
     public List<TripDto> getTrips(){
         return mapper.toTripDtoListWhole(repository.findAll());
@@ -39,6 +43,8 @@ public class TripService {
                 .url(trip.getUrl())
                 .description(trip.getDescription())
                 .length(trip.getLength())
+                .food("Breakfast only")
+                .hotelStars(4)
                 .additions(null)
                 .build();
         repository.save(newTrip);
@@ -46,14 +52,17 @@ public class TripService {
 
 
     public TripDto updateTrip(TripDto tripDto){
+        Traveller traveller = travellerRepository.getOne(tripDto.getUserId());
         Trip newTrip = repository.getOne(tripDto.getId());
         newTrip.setPrice(tripDto.getPrice());
         newTrip.setCity(tripDto.getCity());
+        newTrip.setTraveller(traveller);
         newTrip.setUrl(tripDto.getUrl());
         newTrip.setDescription(tripDto.getDescription());
         newTrip.setLength(tripDto.getLength());
+        newTrip.setFood(tripDto.getFood());
+        newTrip.setHotelStars(tripDto.getHotelStars());
         newTrip.setAdditions(tripDto.getAdditions());
-
         return mapper.toTripDto(repository.save(newTrip));
     }
 

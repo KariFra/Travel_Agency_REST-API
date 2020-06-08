@@ -9,21 +9,16 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DrinkDto {
-    private Long id;
+public class CocktailDto {
+
     private String name;
     private String recipe;
 
     @Override
     public String toString() {
-        return "DrinkDto{" +
+        return "CocktailDto{" +
                 "name='" + name + '\'' +
                 ", recipe='" + recipe + '\'' +
                 '}';
-    }
-
-    public DrinkDto(String name, String recipe) {
-        this.name = name;
-        this.recipe = recipe;
     }
 }
