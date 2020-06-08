@@ -56,7 +56,7 @@ public class TravellerControllerTest {
                 .build());
         //When & Then
         when(service.getUsers()).thenReturn(list);
-        mockMvc.perform(get("/v1/users").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/v1/travellers").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$[0].id",is(1)))
                 .andExpect(jsonPath("$[0].firstName",is("Marc")))
@@ -77,7 +77,7 @@ public class TravellerControllerTest {
                 .build();
         //When & Then
         when(service.getUser(1L)).thenReturn(travellerDto);
-        mockMvc.perform(get("/v1/users/1").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/v1/travellers/1").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$.id",is(1)))
                 .andExpect(jsonPath("$.firstName",is("Marc")))
@@ -92,7 +92,7 @@ public class TravellerControllerTest {
         //When & Then
         when(service.getUser(1L)).thenReturn(null);
         try {
-            mockMvc.perform(get("/v1/users/1")
+            mockMvc.perform(get("/v1/travellers/1")
                     .characterEncoding("UTF-8"))
                     .andExpect(status().is(200));
         } catch (NestedServletException e){
@@ -120,7 +120,7 @@ public class TravellerControllerTest {
         //When & Then
         when(mapper.toTraveller(any(TravellerDto.class))).thenReturn(traveller);
         mockMvc.perform(MockMvcRequestBuilders
-                .post("/v1/users")
+                .post("/v1/travellers")
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
@@ -145,7 +145,7 @@ public class TravellerControllerTest {
         when(service.updateUser(any(TravellerDto.class))).thenReturn(travellerDto);
         Gson gson = new Gson();
         String jsonContent = gson.toJson(travellerDto);
-        mockMvc.perform(put("/v1/users").contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(put("/v1/travellers").contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
                 .andExpect(status().is(200))
@@ -161,7 +161,7 @@ public class TravellerControllerTest {
     public void shouldDeleteUser() throws Exception{
         //When & Then
         mockMvc.perform(MockMvcRequestBuilders
-                .delete("/v1/users/1")
+                .delete("/v1/travellers/1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200));
 

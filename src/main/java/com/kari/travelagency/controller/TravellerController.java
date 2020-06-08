@@ -11,7 +11,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/v1/users")
+@RequestMapping("/v1/travellers")
 public class TravellerController {
 
     @Autowired
