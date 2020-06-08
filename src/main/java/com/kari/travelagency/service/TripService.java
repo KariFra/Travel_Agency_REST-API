@@ -44,7 +44,7 @@ public class TripService {
                 .description(trip.getDescription())
                 .length(trip.getLength())
                 .food("Breakfast only")
-                .hotelStars(4)
+                .stars(4)
                 .additions(null)
                 .build();
         repository.save(newTrip);
@@ -61,7 +61,7 @@ public class TripService {
         newTrip.setDescription(tripDto.getDescription());
         newTrip.setLength(tripDto.getLength());
         newTrip.setFood(tripDto.getFood());
-        newTrip.setHotelStars(tripDto.getHotelStars());
+        newTrip.setStars(tripDto.getStars());
         newTrip.setAdditions(tripDto.getAdditions());
         return mapper.toTripDto(repository.save(newTrip));
     }

@@ -31,9 +31,10 @@ public class TripDto {
 
     private String food;
 
-    private int hotelStars;
+    private int stars;
 
     private List<String> additions;
+
 
 
     @Override

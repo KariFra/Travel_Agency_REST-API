@@ -34,7 +34,7 @@ public class Trip {
 
     private String food;
 
-    private int hotelStars;
+    private int stars;
 
 
     @ElementCollection(fetch = FetchType.LAZY)
