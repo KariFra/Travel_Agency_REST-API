@@ -26,7 +26,7 @@ public class TripMapper {
                 .description(tripDto.getDescription())
                 .length(tripDto.getLength())
                 .food(tripDto.getFood())
-                .stars(tripDto.getstars())
+                .stars(tripDto.getStars())
                 .additions(tripDto.getAdditions())
                 .build();
     }
@@ -40,7 +40,7 @@ public class TripMapper {
                 .description(trip.getDescription())
                 .length(trip.getLength())
                 .food(trip.getFood())
-                .stars(trip.getstars())
+                .stars(trip.getStars())
                 .additions(trip.getAdditions())
                 .build();
     }
