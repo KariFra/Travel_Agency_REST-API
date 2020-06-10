@@ -3,6 +3,7 @@ package com.kari.travelagency.controller;
 
 import com.google.gson.Gson;
 import com.kari.travelagency.dto.OpinionDto;
+import com.kari.travelagency.dto.TravellerDto;
 import com.kari.travelagency.entity.Opinion;
 import com.kari.travelagency.entity.Traveller;
 import com.kari.travelagency.exception.NotFoundException;
@@ -29,8 +30,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -124,6 +124,29 @@ public class OpinionControllerTest {
                 .andExpect(jsonPath("$.userUrl",is("1")))
                 .andExpect(jsonPath("$.rating",is(10)));
 
+    }
+
+    @Test
+    public void shouldUpdateOpinion() throws Exception{
+        //Given
+        OpinionDto opinionDto = new OpinionDto(1L,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "1", 10);
+        Opinion opinion = new Opinion(1L,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "1", 10 );
+
+
+        //When & Then
+        when(mapper.toOpinion(any(OpinionDto.class))).thenReturn(opinion);
+        when(service.updateOpinion(any(Opinion.class))).thenReturn(opinion);
+        when(mapper.toOpinionDto(any(Opinion.class))).thenReturn(opinionDto);
+        Gson gson = new Gson();
+        String jsonContent = gson.toJson(opinionDto);
+        mockMvc.perform(put("/v1/opinions").contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8")
+                .content(jsonContent))
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("$.id",is(1)))
+                .andExpect(jsonPath("$.message",is("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")))
+                .andExpect(jsonPath("$.userUrl",is("1")))
+                .andExpect(jsonPath("$.rating",is(10)));
     }
 
     @Test

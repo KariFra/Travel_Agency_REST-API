@@ -52,17 +52,20 @@ public class TripService {
 
 
     public TripDto updateTrip(TripDto tripDto){
-        Traveller traveller = travellerRepository.getOne(tripDto.getUserId());
         Trip newTrip = repository.getOne(tripDto.getId());
         newTrip.setPrice(tripDto.getPrice());
         newTrip.setCity(tripDto.getCity());
-        newTrip.setTraveller(traveller);
         newTrip.setUrl(tripDto.getUrl());
         newTrip.setDescription(tripDto.getDescription());
         newTrip.setLength(tripDto.getLength());
         newTrip.setFood(tripDto.getFood());
         newTrip.setStars(tripDto.getStars());
         newTrip.setAdditions(tripDto.getAdditions());
+        if(tripDto.getUserId() != null){
+            Traveller traveller = travellerRepository.findById(tripDto.getUserId())
+                    .orElseThrow(()->new NotFoundException("User with the id number: "+tripDto.getUserId()+" was not found"));
+                    newTrip.setTraveller(traveller);
+        }
         return mapper.toTripDto(repository.save(newTrip));
     }
 

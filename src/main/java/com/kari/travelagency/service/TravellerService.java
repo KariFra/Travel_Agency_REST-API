@@ -7,6 +7,7 @@ import com.kari.travelagency.exception.NotFoundException;
 import com.kari.travelagency.mapper.TravellerMapper;
 import com.kari.travelagency.mapper.TripMapper;
 import com.kari.travelagency.repository.TravellerRepository;
+import com.kari.travelagency.repository.TripRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -26,6 +27,9 @@ public class TravellerService {
     @Autowired
     private TravellerMapper travellerMapper;
 
+    @Autowired
+    private TripRepository tripRepository;
+
 
 
     public List<TravellerDto> getUsers(){
@@ -33,7 +37,8 @@ public class TravellerService {
     }
 
     public TravellerDto getUser(Long id){
-        repository.findById(id).orElseThrow(()->new NotFoundException("User with the id number: "+id+" was not found"));
+        repository.findById(id).orElseThrow(()->new NotFoundException("User with the id number: "
+                +id+" was not found"));
         Traveller traveller = repository.getOne(id);
         return travellerMapper.toTravellerDto(repository.getOne(id));
     }
@@ -67,7 +72,11 @@ public class TravellerService {
         newTraveller.setPassword(travellerDto.getPassword());
         newTraveller.setOpinions(travellerDto.getOpinions());
         List<Long> longs = travellerDto.getTripsId();
-        newTraveller.setTrips(tripMapper.toTripList(longs));
+        if(!longs.isEmpty() && longs.stream().allMatch(item -> tripRepository.existsById(item))){
+            newTraveller.setTrips(tripMapper.toTripList(longs));
+        } else {
+              new NotFoundException("One of the trips was not found");
+        }
         return travellerMapper.toTravellerDto(repository.save(newTraveller));
     }
 }
