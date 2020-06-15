@@ -45,6 +45,7 @@ public class TravellerService {
 
     public Traveller createNewUser(Traveller traveller){
         List<String> opinions = new ArrayList<>();
+        opinions.add("NOTHING");
         Traveller newTraveller = new Traveller().toBuilder()
                 .firstName(traveller.getFirstName())
                 .lastName(traveller.getLastName())
