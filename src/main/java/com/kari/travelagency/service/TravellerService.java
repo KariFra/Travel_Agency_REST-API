@@ -55,7 +55,6 @@ public class TravellerService {
                 .trips(traveller.getTrips())
                 .opinions(opinions)
                 .build();
-
         return repository.save(newTraveller);
     }
 
@@ -69,6 +68,7 @@ public class TravellerService {
         newTraveller.setFirstName(travellerDto.getFirstName());
         newTraveller.setLastName(travellerDto.getLastName());
         newTraveller.setMail(travellerDto.getMail());
+        newTraveller.setAvatarUrl(travellerDto.getAvatarUrl());
         newTraveller.setPassword(travellerDto.getPassword());
         newTraveller.setOpinions(travellerDto.getOpinions());
         List<Long> longs = travellerDto.getTripsId();
