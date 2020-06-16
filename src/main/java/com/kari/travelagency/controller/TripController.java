@@ -33,12 +33,14 @@ public class TripController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public void createTrip(@RequestBody TripDto tripDto){
+        System.out.println(tripDto);
         service.createNewTrip(mapper.toTrip(tripDto));
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public TripDto updateTrip(@RequestBody TripDto tripDto){
-        return service.updateTrip(tripDto);
+        TripDto tripDto1 = service.updateTrip(tripDto);
+        return tripDto1;
     }
 
     @DeleteMapping("/{id}")

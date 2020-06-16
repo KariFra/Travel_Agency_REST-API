@@ -57,14 +57,5 @@ public class Trip {
         return id.hashCode();
     }
 
-    @Override
-    public String toString() {
-        return "Trip{" +
-                "id=" + id +
-                ", price=" + price +
-                ", description='" + description + '\'' +
-                ", length=" + length +
-                ", additions=" + additions +
-                '}';
-    }
+
 }

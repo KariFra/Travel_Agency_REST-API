@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TravellerService {
@@ -74,7 +75,8 @@ public class TravellerService {
         newTraveller.setOpinions(travellerDto.getOpinions());
         List<Long> longs = travellerDto.getTripsId();
         if(!longs.isEmpty() && longs.stream().allMatch(item -> tripRepository.existsById(item))){
-            newTraveller.setTrips(tripMapper.toTripList(longs));
+            List<Trip> trips = longs.stream().map(id -> tripRepository.getOne(id)).collect(Collectors.toList());
+            newTraveller.setTrips(trips);
         } else {
               new NotFoundException("One of the trips was not found");
         }

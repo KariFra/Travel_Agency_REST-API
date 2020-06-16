@@ -62,9 +62,9 @@ public class TripService {
         newTrip.setStars(tripDto.getStars());
         newTrip.setAdditions(tripDto.getAdditions());
         if(tripDto.getUserId() != null){
-            Traveller traveller = travellerRepository.findById(tripDto.getUserId())
+            Traveller tripTraveller = travellerRepository.findById(tripDto.getUserId())
                     .orElseThrow(()->new NotFoundException("User with the id number: "+tripDto.getUserId()+" was not found"));
-                    newTrip.setTraveller(traveller);
+                    newTrip.setTraveller(tripTraveller);
         }
         return mapper.toTripDto(repository.save(newTrip));
     }

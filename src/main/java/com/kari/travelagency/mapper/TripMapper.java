@@ -1,7 +1,9 @@
 package com.kari.travelagency.mapper;
 
 import com.kari.travelagency.dto.TripDto;
+import com.kari.travelagency.entity.Traveller;
 import com.kari.travelagency.entity.Trip;
+import com.kari.travelagency.repository.TravellerRepository;
 import com.kari.travelagency.repository.TripRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,10 +19,22 @@ public class TripMapper {
     @Autowired
     private TripRepository repository;
 
+    @Autowired
+    private TravellerRepository travellerRepository;
+
+    private Traveller traveller;
+    private Long id;
+
     public Trip toTrip(TripDto tripDto){
+        if(tripDto.getUserId() != null){
+            traveller = travellerRepository.getOne(tripDto.getUserId());}
+        else{
+            traveller = null;
+        }
         return new Trip().toBuilder()
                 .id(tripDto.getId())
                 .price(tripDto.getPrice())
+                .traveller(traveller)
                 .city(tripDto.getCity())
                 .url(tripDto.getUrl())
                 .description(tripDto.getDescription())
@@ -32,9 +46,15 @@ public class TripMapper {
     }
 
     public TripDto toTripDto(Trip trip){
+        if(trip.getTraveller() != null){
+            id = trip.getTraveller().getId();}
+        else{
+            id = null;
+        }
         return new TripDto().toBuilder()
                 .id(trip.getId())
                 .price(trip.getPrice())
+                .userId(id)
                 .city(trip.getCity())
                 .url(trip.getUrl())
                 .description(trip.getDescription())

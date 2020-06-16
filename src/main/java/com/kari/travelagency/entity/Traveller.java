@@ -56,18 +56,5 @@ public class Traveller {
         return id.hashCode();
     }
 
-    @Override
-    public String toString() {
-        return "Traveller{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", mail='" + mail + '\'' +
-                ", password='" + password + '\'' +
-                ", role='" + role + '\'' +
-                ", avatarUrl='" + avatarUrl + '\'' +
-                ", trips=" + trips +
-                ", opinions=" + opinions +
-                '}';
-    }
+
 }

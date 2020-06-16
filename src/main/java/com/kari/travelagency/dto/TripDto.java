@@ -36,18 +36,19 @@ public class TripDto {
     private List<String> additions;
 
 
-
     @Override
     public String toString() {
         return "TripDto{" +
                 "id=" + id +
-//                ", userId=" + userId +
+                ", userId=" + userId +
                 ", price=" + price +
+                ", city='" + city + '\'' +
+                ", url='" + url + '\'' +
                 ", description='" + description + '\'' +
-                ", length=" + length +
+                ", length='" + length + '\'' +
+                ", food='" + food + '\'' +
+                ", stars=" + stars +
                 ", additions=" + additions +
                 '}';
     }
-
-
 }

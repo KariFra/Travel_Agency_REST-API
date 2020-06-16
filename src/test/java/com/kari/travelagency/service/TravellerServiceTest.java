@@ -81,8 +81,7 @@ public class TravellerServiceTest {
         List<TravellerDto> userList = service.getUsers();
         System.out.println(userList);
         //Than
-        assertTrue(userList.size()!=0);
-        assertEquals("Mroz",userList.get(0).getLastName());
+        assertTrue(userList.size()>=2);
         //Cleanup
         repository.deleteById(userOneId);
         repository.deleteById(userTwoId);

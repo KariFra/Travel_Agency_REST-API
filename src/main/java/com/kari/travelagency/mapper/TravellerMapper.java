@@ -3,7 +3,6 @@ package com.kari.travelagency.mapper;
 import com.kari.travelagency.dto.TravellerDto;
 import com.kari.travelagency.entity.Traveller;
 import com.kari.travelagency.entity.Trip;
-import com.kari.travelagency.repository.TripRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,9 +17,7 @@ public class TravellerMapper {
 
 
     public Traveller toTraveller(TravellerDto travellerDto){
-        List<Long> list = travellerDto.getTripsId();
-//        List<Trip> trips = list.stream().map(id -> repository.getOne(id)).collect(Collectors.toList());
-        return new Traveller().toBuilder()
+               return new Traveller().toBuilder()
                 .id(travellerDto.getId())
                 .firstName(travellerDto.getFirstName())
                 .lastName(travellerDto.getLastName())
