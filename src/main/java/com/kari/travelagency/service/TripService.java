@@ -74,7 +74,4 @@ public class TripService {
         repository.deleteById(id);
     }
 
-    public List<TripDto> getTripsByCity(String string){
-        return mapper.toTripDtoListWhole(repository.findAllByCity(string));
-    }
 }

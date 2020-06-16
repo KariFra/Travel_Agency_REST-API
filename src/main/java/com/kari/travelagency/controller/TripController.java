@@ -26,10 +26,6 @@ public class TripController {
         return service.getTrips();
     }
 
-    @GetMapping("/{city}")
-    public List<TripDto> getTripsByCity(@PathVariable String city){
-        return service.getTripsByCity(city);
-    }
 
     @GetMapping("/{id}")
     public TripDto getTrip(@PathVariable Long id){
