@@ -1,7 +1,9 @@
 package com.kari.travelagency.controller;
 
 import com.kari.travelagency.dto.TravellerDto;
+import com.kari.travelagency.entity.Traveller;
 import com.kari.travelagency.mapper.TravellerMapper;
+import com.kari.travelagency.repository.TravellerRepository;
 import com.kari.travelagency.service.TravellerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -16,6 +18,9 @@ public class TravellerController {
 
     @Autowired
     private TravellerService travellerService;
+
+    @Autowired
+    private TravellerRepository repository;
 
     @Autowired
     private TravellerMapper mapper;
@@ -44,5 +49,10 @@ public class TravellerController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id){
         travellerService.deleteUser(id);
+    }
+
+    @GetMapping("/{mail}")
+    public Traveller findByEmail(@PathVariable String mail){
+        return repository.findByMail(mail);
     }
 }
