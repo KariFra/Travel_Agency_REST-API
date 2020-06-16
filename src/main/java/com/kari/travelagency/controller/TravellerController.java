@@ -51,8 +51,4 @@ public class TravellerController {
         travellerService.deleteUser(id);
     }
 
-    @GetMapping("/{mail}")
-    public Traveller findByEmail(@PathVariable String mail){
-        return repository.findByMail(mail);
-    }
 }
