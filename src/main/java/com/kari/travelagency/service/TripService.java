@@ -73,4 +73,8 @@ public class TripService {
         repository.findById(id).orElseThrow(()->new NotFoundException("Trip with the id number: "+id+" was not found"));
         repository.deleteById(id);
     }
+
+    public List<TripDto> getTripsByCity(String string){
+        return mapper.toTripDtoListWhole(repository.findAllByCity(string));
+    }
 }
